@@ -20,9 +20,16 @@ namespace OOANS_projekt
                     Fields[i][j] = new Field();
                 }
             }
-            Battlefield Battlefield = new Battlefield(Fields);
 
-            Fields[0][0].Hero = new Hero();
+
+            Battlefield Battlefield = new Battlefield(Fields.Select(x => x.ToList()).ToList());
+            Hero Hero = new Hero();
+            Hero.MovementPoints = 5;
+            Hero.RemainingMovementPoints = 5;
+            Battlefield.AddHero(Hero, 0, 0);
+            BattleController bc = new BattleController(Battlefield);
+
+
 
             List<(int, int)> Coordinates = new List<(int, int)>();
             Coordinates.Add((0, 0));
@@ -34,31 +41,21 @@ namespace OOANS_projekt
             Coordinates.Add((2, 2));
             Command Command = new MoveCommand(Coordinates);
 
-            Command.Execute(Battlefield);
+            //BattlefieldMemento Memento = Battlefield.CreateMemento();
+            //Console.WriteLine(Memento.BattleGrid.Count);
+            //Console.WriteLine(Memento.BattleGrid[0].Count);
+            //Command.Execute(Battlefield);
 
-            object[] Temp = { "ahj", "asda", "asda"};
+            //Battlefield.Restore(Memento);
 
-            
             /*table
                  .AddRow("this line should be longer", "yes it is", "oh");
             table.AddRow(Temp);
             table.Write();*/
 
-            List<object[]> a = Battlefield.ToRenderableFormat();
 
-            String[] Placeholder = new string[a[0].Length];
-            for (int i = 0; i < Placeholder.Length; i++)
-            {
-                Placeholder[i] = i.ToString();
-            }
-            var table = new ConsoleTable(Placeholder);
-            foreach (object[] O in a)
-            {
-                table.AddRow(O);
-            }
-            table.Write();
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }

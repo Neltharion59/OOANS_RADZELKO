@@ -49,14 +49,24 @@
     <Compile Include="AbstractField.cs" />
     <Compile Include="BattleController.cs" />
     <Compile Include="Battlefield.cs" />
+    <Compile Include="BattlefieldMemento.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Field.cs" />
+    <Compile Include="FieldMemento.cs" />
+    <Compile Include="FieldState.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="HeroInterface.cs" />
+    <Compile Include="HeroMemento.cs" />
+    <Compile Include="ImpassableFieldState.cs" />
     <Compile Include="MoveCommand.cs" />
+    <Compile Include="NormalFieldState.cs" />
     <Compile Include="NullField.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skill.cs" />
+    <Compile Include="FieldStateMemento.cs" />
+    <Compile Include="SkillMemento.cs" />
+    <Compile Include="TrappedFieldState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
