@@ -27,6 +27,10 @@ namespace OOANS_projekt
             Hero.MovementPoints = 5;
             Hero.RemainingMovementPoints = 5;
             Battlefield.AddHero(Hero, 0, 0);
+            Hero = new Hero();
+            Hero.MovementPoints = 5;
+            Hero.RemainingMovementPoints = 5;
+            Battlefield.AddHero(Hero, 4, 4);
             BattleController bc = new BattleController(Battlefield);
 
 

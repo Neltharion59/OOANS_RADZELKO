@@ -68,5 +68,10 @@ namespace OOANS_projekt
         {
             return new int[] { x, y};
         }
+
+        public int GetRemainingSteps()
+        {
+            return this.RemainingMovementPoints;
+        }
     }
 }

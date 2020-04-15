@@ -23,16 +23,16 @@ namespace OOANS_projekt
             this.Battlefield = Battlefield;
             this.Over = false;
 
-            this.RefreshBattleField = false;
-            this.RenderBattleField();
-            this.KeepRenderingBattleField();
-
             this.CommandStackNormal = new Stack<BattlefieldMemento>();
             this.CommandStackReverse = new Stack<BattlefieldMemento>();
             this.CommandStackNormal.Push(this.Battlefield.CreateMemento());
 
             this.HeroQueue = this.Battlefield.GetAllHeroes();
-            
+
+            this.RefreshBattleField = false;
+            this.RenderBattleField();
+            this.KeepRenderingBattleField();
+
             ReceiveCommands();
         }
 
@@ -89,6 +89,7 @@ namespace OOANS_projekt
                         {
                             RefreshBattleField = false;
                         }
+                        Thread.Sleep(500);
                         this.RenderBattleField();
                         break;
                     case "skill":
@@ -104,6 +105,9 @@ namespace OOANS_projekt
                         Temp.RestoreTurn();
                         this.HeroQueue.RemoveFirst();
                         this.HeroQueue.AddLast(Temp);
+
+                        this.RenderBattleField();
+
                         break;
                     case "undo":
                         if (this.CommandStackNormal.Count > 1)
@@ -121,8 +125,13 @@ namespace OOANS_projekt
                             this.RenderBattleField();
                         }
                         break;
+                    case "refresh":
+                        this.RenderBattleField();
+                        break;
                     case "exit":
                         this.Over = true;
+                        break;
+                    default:
                         break;
                 }
 
@@ -164,7 +173,7 @@ namespace OOANS_projekt
                     }
 
                     RenderBattleField();
-
+                    
                     Thread.Sleep(1000);
                 }
             });
@@ -172,7 +181,7 @@ namespace OOANS_projekt
         }
         public void RenderBattleField()
         {
-           // Console.Clear();
+            Console.Clear();
             List<object[]> a = Battlefield.ToRenderableFormat();
 
             String[] Placeholder = new string[a[0].Length];
@@ -187,6 +196,7 @@ namespace OOANS_projekt
                 table.AddRow(O);
             }
             table.Write();
+            Console.WriteLine("Remaining steps: " + this.HeroQueue.First().GetRemainingSteps());
         }
     }
 }

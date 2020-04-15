@@ -15,5 +15,6 @@ namespace OOANS_projekt
         void RestoreTurn();
         void SetCoordinates(int x, int y);
         int[] GetCoordinates();
+        int GetRemainingSteps();
     }
 }
