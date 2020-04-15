@@ -61,7 +61,7 @@ namespace OOANS_projekt
                     BattleGrid[i][j].x = i;
                     BattleGrid[i][j].y = j;
 
-                    Result.Last()[j + 1] = BattleGrid[i][j].Hero == null ? "E" : "H";
+                    Result.Last()[j + 1] = BattleGrid[i][j].ToScreenText() + ", " + (BattleGrid[i][j].Hero == null ? "E" : "H");
                 }
             }
             return Result;

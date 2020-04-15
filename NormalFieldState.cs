@@ -23,6 +23,11 @@ namespace OOANS_projekt
             return NormalFieldState.Instance;
         }
 
+        public override string ToScreenText()
+        {
+            return "Normal";
+        }
+
         protected override int GetEntryCost()
         {
             return NormalFieldState.EntryCost;

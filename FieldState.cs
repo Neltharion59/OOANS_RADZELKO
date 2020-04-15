@@ -54,5 +54,6 @@ namespace OOANS_projekt
         public virtual void Restore(FieldStateMemento Memento)
         {
         }
+        public abstract String ToScreenText();
     }
 }

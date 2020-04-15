@@ -22,6 +22,11 @@ namespace OOANS_projekt
             return ImpassableFieldState.Instance;
         }
 
+        public override string ToScreenText()
+        {
+            return "Impassable";
+        }
+
         protected override int GetEntryCost()
         {
             return int.MaxValue;

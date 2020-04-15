@@ -23,6 +23,17 @@ namespace OOANS_projekt
 
 
             Battlefield Battlefield = new Battlefield(Fields.Select(x => x.ToList()).ToList());
+
+            Fields[0][3].State = ImpassableFieldState.GetInstance();
+
+            Fields[2][2].State = ImpassableFieldState.GetInstance();
+            Fields[2][3].State = ImpassableFieldState.GetInstance();
+            Fields[3][2].State = ImpassableFieldState.GetInstance();
+            Fields[3][3].State = ImpassableFieldState.GetInstance();
+
+            Fields[1][3].State = new TrappedFieldState();
+            Fields[1][4].State = new TrappedFieldState();
+
             Hero Hero = new Hero();
             Hero.MovementPoints = 5;
             Hero.RemainingMovementPoints = 5;

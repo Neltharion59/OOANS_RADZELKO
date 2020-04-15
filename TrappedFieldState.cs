@@ -11,12 +11,9 @@ namespace OOANS_projekt
         private static readonly int EntryCost = 1;
         public List<Skill> Trapps { get; set; }
 
-        public TrappedFieldState(Skill Trap)
+        public TrappedFieldState()
         {
-            this.Trapps = new List<Skill>
-            {
-                Trap
-            };
+            this.Trapps = new List<Skill>();
         }
         protected override int GetEntryCost()
         {
@@ -64,6 +61,11 @@ namespace OOANS_projekt
             base.Restore(Memento);
 
             this.Trapps = Memento.Skills.Select(SkillMemento => SkillMemento.Skill.Restore(SkillMemento)).ToList();
+        }
+
+        public override string ToScreenText()
+        {
+            return "Trapped";
         }
     }
 }

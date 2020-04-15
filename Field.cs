@@ -71,5 +71,10 @@ namespace OOANS_projekt
         {
             this.Hero = null;
         }
+
+        public String ToScreenText()
+        {
+            return this.State.ToScreenText();
+        }
     }
 }
