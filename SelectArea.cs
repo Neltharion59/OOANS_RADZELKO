@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class SelectArea : SkillTriggering
+    class SelectArea : ITriggerBehaviour
     {
-        protected override double CalculateCoeficient(Skill skill, Field source)
+        public double CalculateCoeficient(Field source, int MaxTargets)
         {
             return 0.5 * source.Hero.CalculateDamageModifier();
         }
 
-        protected override List<Field> selectTargets(Skill skill, Battlefield battlefield, Field source, bool targetSelf)
+        public List<Field> selectTargets(Battlefield battlefield, Field source, int SkillRange, int MaxTargets, bool targetSelf)
         {
             List<Field> targets = new List<Field>();
 
-            for(int x = -skill.Range; x <= skill.Range; x++)
+            for(int x = -SkillRange; x <= SkillRange; x++)
             {
-                for(int y = -skill.Range; y <= skill.Range; y++)
+                for(int y = -SkillRange; y <= SkillRange; y++)
                 {
                     if (!(x == 0 && y == 0 && !targetSelf))
                     {
@@ -30,7 +30,7 @@ namespace OOANS_projekt
                                 targets.Add(battlefield.GetField(source.x + x, source.y + y));
                             }
                         }
-                        catch
+                        catch( Exception e)
                         {
 
                         }

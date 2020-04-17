@@ -10,9 +10,6 @@ namespace OOANS_projekt
     {
         //Lukas
         public int ActionPoints { get; set; }
-        public int RemainingActionPoints { get; set; }
-        public int x;
-        public int y;
         public int HarvestPower;
         private HeroInventory Inventory;
         //Miso
@@ -23,15 +20,11 @@ namespace OOANS_projekt
         public Hero(List<Skill> Skills, int HealthPoints, String name)
         {
             this.Skills = Skills;
-            this.HP = new HealthStat(HealthPoints, this);
+            this.HP = new HealthStat(HealthPoints);
             this.name = name;
             
             
             this.ActionPoints = 0;
-            this.RemainingActionPoints = 0;
-
-            this.x = -1;
-            this.y = -1;
 
             this.HarvestPower = 1;
 
@@ -43,22 +36,12 @@ namespace OOANS_projekt
             return false;
         }
 
-        public bool PayActionCost(int ActionCost)
-        {
-            if (ActionCost > RemainingActionPoints)
-            {
-                return false;
-            }
-            RemainingActionPoints -= ActionCost;
-            return true;
-        }
+        public bool PayActionCost(int ActionCost) { return true; }
         public HeroMemento CreateMemento()
         {
             HeroMemento Memento = new HeroMemento();
             Memento.MovementPoints = this.ActionPoints;
-            Memento.RemainingMovementPoints = this.RemainingActionPoints;
-            Memento.x = this.x;
-            Memento.y = this.y;
+
             Memento.HarvestPower = this.HarvestPower;
             return Memento;
         }
@@ -66,34 +49,25 @@ namespace OOANS_projekt
         public void Restore(HeroMemento Memento)
         {
             this.ActionPoints = Memento.MovementPoints;
-            this.RemainingActionPoints = Memento.RemainingMovementPoints;
-            this.x = Memento.x;
-            this.y = Memento.y;
+
             this.HarvestPower = Memento.HarvestPower;
         }
 
-        public void RestoreTurn()
-        {
-            this.RemainingActionPoints = this.ActionPoints;
-        }
+        public void RestoreTurn() {}
 
-        public void SetCoordinates(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
+        public void SetCoordinates(int x, int y) { }
 
         public int[] GetCoordinates()
         {
-            return new int[] { x, y};
+            return null;
         }
 
         public int GetRemainingSteps()
         {
-            return this.RemainingActionPoints;
+            return -1;
         }
 
-        public int GetHavervestPower()
+        public int GetHarvestPower()
         {
             return this.HarvestPower;
         }
@@ -103,10 +77,7 @@ namespace OOANS_projekt
             return this.Inventory.AddResource(Resource);
         }
 
-        public void BoostActionPoints(int Amount)
-        {
-            this.RemainingActionPoints += Amount;
-        }
+        public void BoostActionPoints(int Amount) {}
         //Miso
         public Skill GetSkill(int id) //TODO vymyslet to inak?  nie podla id
         {
@@ -146,6 +117,19 @@ namespace OOANS_projekt
         public double CalculateDamageModifier()
         {
             return 1.0;
+        }
+
+        public List<Skill> GetAllPasiveSkills()
+        {
+            List<Skill> Result = new List<Skill>();
+            foreach (Skill Skill in this.Skills)
+            {
+                if (Skill.Passive)
+                {
+                    Result.Add(Skill);
+                }
+            }
+            return Result;
         }
     }
 }

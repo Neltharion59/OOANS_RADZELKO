@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class BattleScreen : ObserverInterface
+    class BattleScreen : Observer
     {
-        public void Update(ObserverSubject subject, HeroInterface parentHero)
+        private HeroInterface Hero;
+        public BattleScreen(HeroInterface Hero)
         {
-            Console.WriteLine("Observer: Health of " + parentHero.GetHeroName() + " changed to: " + parentHero.GetHealthStat().ActualHP);
+            this.Hero = Hero;
+        }
+        public void Update(Subject Subject)
+        {
+            Console.WriteLine("HP of " + Hero.GetHeroName() + " changed to " + ((HealthStat)Subject).ActualHP);
         }
     }
 }

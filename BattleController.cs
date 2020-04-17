@@ -9,7 +9,7 @@ namespace OOANS_projekt
 {
     class BattleController
     {
-        private Battlefield Battlefield { get; }
+        public Battlefield Battlefield { get; }
         public bool RefreshBattleField { get; set; }
         private readonly object Refreshlock = new object();
         private bool Over { get; set; }
@@ -18,10 +18,58 @@ namespace OOANS_projekt
         private Stack<BattlefieldMemento> CommandStackReverse { get; }
 
         private LinkedList<HeroInterface> HeroQueue { get; }
-        public BattleController(Battlefield Battlefield)
-        {
-            this.Battlefield = Battlefield;
+        public BattleController(List<List<Field>> Fields)
+        {  
             this.Over = false;
+            ObserverFactory.GetInstance().Init(this);
+
+            Fields[0][1].SetStateNew(ForestFieldState.GetInstance());
+            Fields[0][3].SetStateNew(ImpassableFieldState.GetInstance());
+
+            Fields[2][2].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[2][3].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[3][2].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[3][3].SetStateNew(ImpassableFieldState.GetInstance());
+
+            Fields[1][3].SetStateNew(NormalFieldState.GetInstance());
+            Fields[1][4].SetStateNew(NormalFieldState.GetInstance());
+
+            this.Battlefield = new Battlefield(Fields);
+
+            Hero Hero = new Hero(new List<Skill>(), 100, "Hero1");
+            Hero.ActionPoints = 5;
+
+            Hero.Skills.Add(
+                new CauseDamageSkill(
+                    "Passive self damage",
+                    20,
+                    new SelectSelf(),
+                    1,
+                    1,
+                    90,
+                    true
+                )
+            );
+            Hero.Skills.Add(
+                new HealSkill(
+                    "Passive self healing",
+                    20,
+                    new SelectSelf(),
+                    1,
+                    1,
+                    80,
+                    true
+                )
+            );
+
+
+            ProxyHero Herop = new ProxyHero(Hero);
+            Battlefield.AddHero(Herop, 0, 0);
+
+            Hero = new Hero(new List<Skill>(), 50, "Hero3");
+            Hero.ActionPoints = 4;
+            Herop = new ProxyHero(Hero);
+            Battlefield.AddHero(Herop, 4, 4);
 
             this.CommandStackNormal = new Stack<BattlefieldMemento>();
             this.CommandStackReverse = new Stack<BattlefieldMemento>();
@@ -33,8 +81,19 @@ namespace OOANS_projekt
             this.RenderBattleField();
             this.KeepRenderingBattleField();
 
-            ObserverFactory.GetInstance().Init(this);
             
+
+            SkillPlaceTrap Skill = new SkillPlaceTrap(
+                new CauseDamageSkill("Pascokiller", 20, new SelectSelf(), 1, 1, 50, false),
+                "Trapp-Placing skill",
+                new SelectOneTarget(),
+                1,
+                1,
+                20,
+                false
+            );
+            this.ExecuteCommand(new UseSkillCommand(Skill, Battlefield.GetField(0, 0), new SelectOneTarget()));
+
             ReceiveCommands();
 
             ObserverFactory.GetInstance().Finish();
@@ -193,7 +252,7 @@ namespace OOANS_projekt
         }
         public void RenderBattleField()
         {
-            Console.Clear();
+            //Console.Clear();
             List<object[]> a = Battlefield.ToRenderableFormat();
 
             String[] Placeholder = new string[a[0].Length];

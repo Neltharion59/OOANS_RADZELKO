@@ -18,7 +18,7 @@ namespace OOANS_projekt
         void SetCoordinates(int x, int y);
         int[] GetCoordinates();
         int GetRemainingSteps();
-        int GetHavervestPower();
+        int GetHarvestPower();
         bool AddResource(Resource Resource);
         //Miso
         public Skill GetSkill(int id);
@@ -29,6 +29,7 @@ namespace OOANS_projekt
         public void AddEffect(Effect effect);
         public void RemoveEffect(Effect effect);
         public double CalculateDamageModifier();
-
+        //Merge
+        public List<Skill> GetAllPasiveSkills();
     }
 }

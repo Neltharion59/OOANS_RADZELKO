@@ -31,6 +31,11 @@ namespace OOANS_projekt
             this.BattleController = null;
         }
 
+        public Observer RequestObserver(HeroInterface Hero)
+        {
+            BattleScreen Observer = new BattleScreen(Hero);
+            return Observer;
+        }
         public Observer RequestObserver(Skill Skill, HeroInterface OwningHero)
         {
             PassiveSkillObserver Observer = new PassiveSkillObserver(this.BattleController, Skill, OwningHero);

@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class SelectSelf : SkillTriggering
+    class SelectSelf : ITriggerBehaviour
     {
-        protected override double CalculateCoeficient(Skill skill, Field source)
+        public double CalculateCoeficient(Field source, int MaxTargets)
         {
             return 1.0 * source.Hero.CalculateDamageModifier();
         }
 
-        protected override List<Field> selectTargets(Skill skill, Battlefield battlefield, Field source, bool targetSelf)
+        public List<Field> selectTargets(Battlefield battlefield, Field source, int SkillRange, int MaxTargets, bool targetSelf)
         {
-            List<Field> targets = new List<Field>();
-            targets.Add(source);
+            List<Field> targets = new List<Field>
+            {
+                source
+            };
 
             return targets;
         }

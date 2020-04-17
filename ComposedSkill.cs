@@ -15,20 +15,9 @@ namespace OOANS_projekt
             this.DecoratedSkill = skill;
         }
 
-        public override void Trigger(Battlefield battlefield, Field source)
+        public override void Use(List<Field> targets, double coeficient)
         {
-            DecoratedSkill.Trigger(battlefield, source);
+            DecoratedSkill.Use(targets, coeficient);
         }
-
-        public override void Use(Battlefield battlefield, List<Field> targets, double coeficient)
-        {
-            DecoratedSkill.Use(battlefield, targets, coeficient);
-        }
-
-        public override void Update(ObserverSubject subject, HeroInterface parentHero)
-        {
-            DecoratedSkill.Update(subject, parentHero);
-        }
-
     }
 }

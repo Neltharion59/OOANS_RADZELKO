@@ -21,29 +21,11 @@ namespace OOANS_projekt
                 }
             }
 
-            Battlefield Battlefield = new Battlefield(Fields.Select(x => x.ToList()).ToList());
-
-            Fields[0][1].SetStateNew(ForestFieldState.GetInstance());
-            Fields[0][3].SetStateNew(ImpassableFieldState.GetInstance());
-
-            Fields[2][2].SetStateNew(ImpassableFieldState.GetInstance());
-            Fields[2][3].SetStateNew(ImpassableFieldState.GetInstance());
-            Fields[3][2].SetStateNew(ImpassableFieldState.GetInstance());
-            Fields[3][3].SetStateNew(ImpassableFieldState.GetInstance());
-
-            Fields[1][3].SetStateNew(NormalFieldState.GetInstance());
-            Fields[1][4].SetStateNew(NormalFieldState.GetInstance());
-
-            Hero Hero = new Hero(new List<Skill>(), 100, "Hero1"); 
-            Hero.ActionPoints = 5;
-            Hero.RemainingActionPoints = 5;
-            Battlefield.AddHero(Hero, 0, 0);
-            Hero = new Hero(new List<Skill>(), 50, "Hero3"); 
-            Hero.ActionPoints = 4;
-            Hero.RemainingActionPoints = 4;
-            Battlefield.AddHero(Hero, 4, 4);
-            BattleController bc = new BattleController(Battlefield);
             
+
+            BattleController bc = new BattleController(Fields.Select(x => x.ToList()).ToList());
+            Battlefield Battlefield = bc.Battlefield;
+
             /*table
                  .AddRow("this line should be longer", "yes it is", "oh");
             table.AddRow(Temp);
@@ -94,14 +76,9 @@ namespace OOANS_projekt
             //vytvor hrdinu
             HeroInterface Hrdina = new ProxyHero(new Hero(Skills: skillList, HealthPoints: 100, name: "Hero2"));
             //pridaj hrdinu na mapu
-            Battlefield.GetField(1, 1).Hero = Hrdina;
+            Battlefield.GetField(1, 1).SetHero(Hrdina);
 
             //vytvor observera
-            ObserverSubject subject = Battlefield.GetField(1, 1).Hero.GetHealthStat();
-            ObserverInterface observerA = Battlefield.GetField(1, 1).Hero.GetSkill(0);
-            ObserverInterface observerB = new BattleScreen();
-            subject.RegisterObserver(observerA);
-            subject.RegisterObserver(observerB);
 
 
             //vytvor command, odkomentovat ak je prvy skill aktviny

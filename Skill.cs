@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    abstract class Skill : ObserverInterface
+    abstract class Skill
     {
         public String Name { get; set; }
         public int Range { get; set; }
@@ -15,10 +15,20 @@ namespace OOANS_projekt
         public int TriggerTreshold { get; set; }
         public ITriggerBehaviour TriggerBehaviour { get; set; }
     
-        public abstract void Use(Battlefield battlefield, List<Field> targets, double coeficient);
-        public abstract void Trigger(Battlefield battlefield, Field source);
-        public abstract void Update(ObserverSubject subject, HeroInterface parentHero);
         
+        public void Trigger(Battlefield battlefield, Field source)
+        {
+            Console.WriteLine("Skill is triggering: " + Name);
+
+            List<Field> TargetFields = this.TriggerBehaviour.selectTargets(battlefield, source, this.Range, this.MaxTargets, this.TargetSelf());
+            double Coefficient = this.TriggerBehaviour.CalculateCoeficient(source, this.MaxTargets);
+
+            this.Use(TargetFields, Coefficient);
+
+            Console.WriteLine("Skill ended: " + Name + "\n");
+        }
+        public abstract void Use(List<Field> targets, double coeficient);
+        public abstract bool TargetSelf();
         public virtual SkillMemento CreateMemento()
         {
             SkillMemento Memento = new SkillMemento();

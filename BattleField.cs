@@ -17,6 +17,10 @@ namespace OOANS_projekt
 
             this.Heroes = new List<HeroInterface>();
         }
+        public Field GetField(HeroInterface Hero)
+        {
+            return GetField(Hero.GetCoordinates()[0], Hero.GetCoordinates()[1]);
+        }
         public Field GetField(int x, int y)
         {
             Field Result = null;
@@ -37,7 +41,15 @@ namespace OOANS_projekt
             if (Field != null)
             {
                 this.Heroes.Add(Hero);
-                Field.SetHero(Hero);           
+                Field.SetHero(Hero);
+
+                List<Skill> PassiveSkills = Hero.GetAllPasiveSkills();
+                foreach (Skill Skill in PassiveSkills)
+                {
+                    Hero.GetHealthStat().Register(ObserverFactory.GetInstance().RequestObserver(Skill, Hero), false);
+                }
+
+                Hero.GetHealthStat().Register(ObserverFactory.GetInstance().RequestObserver(Hero), true);
             }
         }
 
