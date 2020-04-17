@@ -17,27 +17,32 @@ namespace OOANS_projekt
                 Fields[i] = new Field[5];
                 for (int j = 0; j < Fields[i].Length; j++)
                 {
-                    Fields[i][j] = new Field();
+                    Fields[i][j] = new Field(i, j);
                 }
             }
-            Battlefield Battlefield = new Battlefield(Fields);
 
-            Fields[0][0].Hero = new Hero(new List<Skill>(), 100, "Hero1"); 
+            Battlefield Battlefield = new Battlefield(Fields.Select(x => x.ToList()).ToList());
 
-            List<(int, int)> Coordinates = new List<(int, int)>();
-            Coordinates.Add((0, 0));
-            Coordinates.Add((0, 1));
-            Coordinates.Add((0, 2));
-            Coordinates.Add((0, 3));
-            Coordinates.Add((1, 3));
-            Coordinates.Add((2, 3));
-            Coordinates.Add((2, 2));
-            Command Command = new MoveCommand(Coordinates);
+            Fields[0][1].SetStateNew(ForestFieldState.GetInstance());
+            Fields[0][3].SetStateNew(ImpassableFieldState.GetInstance());
 
-            Command.Execute(Battlefield);
+            Fields[2][2].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[2][3].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[3][2].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[3][3].SetStateNew(ImpassableFieldState.GetInstance());
 
-            object[] Temp = { "ahj", "asda", "asda"};
+            Fields[1][3].SetStateNew(NormalFieldState.GetInstance());
+            Fields[1][4].SetStateNew(NormalFieldState.GetInstance());
 
+            Hero Hero = new Hero(new List<Skill>(), 100, "Hero1"); 
+            Hero.ActionPoints = 5;
+            Hero.RemainingActionPoints = 5;
+            Battlefield.AddHero(Hero, 0, 0);
+            Hero = new Hero(new List<Skill>(), 50, "Hero3"); 
+            Hero.ActionPoints = 4;
+            Hero.RemainingActionPoints = 4;
+            Battlefield.AddHero(Hero, 4, 4);
+            BattleController bc = new BattleController(Battlefield);
             
             /*table
                  .AddRow("this line should be longer", "yes it is", "oh");

@@ -14,9 +14,20 @@ namespace OOANS_projekt
         public bool Passive { get; set; }
         public int TriggerTreshold { get; set; }
         public ITriggerBehaviour TriggerBehaviour { get; set; }
+    
         public abstract void Use(Battlefield battlefield, List<Field> targets, double coeficient);
         public abstract void Trigger(Battlefield battlefield, Field source);
         public abstract void Update(ObserverSubject subject, HeroInterface parentHero);
-
+        
+        public virtual SkillMemento CreateMemento()
+        {
+            SkillMemento Memento = new SkillMemento();
+            Memento.Skill = this;
+            return Memento;
+        }
+        public virtual Skill Restore(SkillMemento Memento)
+        {
+            return this;
+        }
     }
 }

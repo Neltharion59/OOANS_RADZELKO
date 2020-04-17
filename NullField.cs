@@ -26,7 +26,7 @@ namespace OOANS_projekt
             bool Result = false;
             if (Previous != null && Hero != null)
             {
-                Previous.Hero = Hero;
+                Previous.SetHero(Hero);
                 Result = true;
             }
             return Result;
