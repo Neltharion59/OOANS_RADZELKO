@@ -18,7 +18,7 @@ namespace OOANS_projekt
         {
             bool Success = true;
             Field TempCurrent;
-            Field TempNext;
+            Field TempNext = null;
             List<Field> PathFields = new List<Field>();
 
             // Build chain of responsibility
@@ -40,6 +40,10 @@ namespace OOANS_projekt
                 TempCurrent.NextInChain = TempNext;
                 PathFields.Add(TempCurrent);
             }
+            if (TempNext != null)
+            {
+                PathFields.Add(TempNext);
+            } 
 
             if (!Success)
             {
@@ -47,7 +51,12 @@ namespace OOANS_projekt
                 return false;
             }
 
-            Success = PathFields.First().MoveHero(PathFields.First().Hero);
+            if (PathFields.Count > 1)
+            {
+                HeroInterface Hero = PathFields.First().Hero;
+                PathFields.First().SetHero();
+                Success = PathFields[1].MoveHero(Hero, PathFields.First());
+            }
 
             CleanUpPath(PathFields);
 
