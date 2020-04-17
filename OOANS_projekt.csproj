@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,10 +32,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConsoleTables, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConsoleTables.2.4.1\lib\net40\ConsoleTables.dll</HintPath>
+      <HintPath>packages\ConsoleTables.2.4.1\lib\net40\ConsoleTables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,16 +49,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractField.cs" />
+    <Compile Include="DamageIncreaseBuff.cs" />
+    <Compile Include="DamageReduceDebuff.cs" />
+    <Compile Include="DamageResistanceBuff.cs" />
+    <Compile Include="ComposedSkill.cs" />
+    <Compile Include="DamageDebuffSkill.cs" />
+    <Compile Include="DamageVulnerabilityDebuff.cs" />
+    <Compile Include="HealBuffSkill.cs" />
+    <Compile Include="SelectAutoTarget.cs" />
+    <Compile Include="SelectSelf.cs" />
+    <Compile Include="SkillTriggering.cs" />
     <Compile Include="BattleController.cs" />
     <Compile Include="Battlefield.cs" />
+    <Compile Include="BattleScreen.cs" />
+    <Compile Include="CauseDamageSkill.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Effect.cs" />
     <Compile Include="Field.cs" />
+    <Compile Include="HealSkill.cs" />
+    <Compile Include="HealthStat.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="HeroInterface.cs" />
     <Compile Include="MoveCommand.cs" />
     <Compile Include="NullField.cs" />
+    <Compile Include="ObserverInterface.cs" />
+    <Compile Include="PassiveSkillTriggering.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyHero.cs" />
+    <Compile Include="SelectArea.cs" />
+    <Compile Include="SelectOneTarget.cs" />
+    <Compile Include="Skill.cs" />
+    <Compile Include="ObserverSubject.cs" />
+    <Compile Include="TriggerBehaviour.cs" />
+    <Compile Include="UseSkillCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
