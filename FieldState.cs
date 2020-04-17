@@ -22,29 +22,30 @@ namespace OOANS_projekt
                 return false;
             }
             Console.WriteLine("FieldState::EnterField - move cost");
-            if (!Hero.Move(GetEntryCost()))
+            if (!Hero.PayActionCost(GetEntryCost()))
             {
                 return false;
             }
-            Console.WriteLine("FieldState::EnterField - traps");
+            Console.WriteLine("FieldState::EnterField - hero successfully entered field");
             Field.SetHero(Hero);
-
-            TriggerTraps(Hero);
-            if (Hero.IsDead())
-            {
-                Field.SetHero();
-            }
-            Console.WriteLine("FieldState::EnterField - update field state");
-            UpdateFieldState(Field);
 
             return true;
         }
+        public abstract bool PermitEntry();
+        public abstract int GetEntryCost();
 
-        protected abstract bool PermitEntry();
-        protected abstract void TriggerTraps(HeroInterface Hero);
-        protected abstract int GetEntryCost();
-        protected abstract void UpdateFieldState(Field Field);
+        public virtual Resource GatherResource(Field Field, int Amount)
+        {
+            Resource Result = Field.Resource.Take(Amount);
+            if (Result.Type != ResourceType.None && Field.Resource.IsDepleted())
+            {
+                UpdateFieldStateAfterGathering(Field);
+            }
 
+            return Result;
+        }
+        public abstract void UpdateFieldStateAfterGathering(Field Field);
+        public abstract void ProduceResource(Field Field);
         public virtual FieldStateMemento CreateMemento()
         {
             FieldStateMemento Memento = new FieldStateMemento();

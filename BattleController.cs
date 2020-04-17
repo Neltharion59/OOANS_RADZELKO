@@ -33,7 +33,11 @@ namespace OOANS_projekt
             this.RenderBattleField();
             this.KeepRenderingBattleField();
 
+            ObserverFactory.GetInstance().Init(this);
+            
             ReceiveCommands();
+
+            ObserverFactory.GetInstance().Finish();
         }
 
         public void ReceiveCommands()
@@ -56,6 +60,11 @@ namespace OOANS_projekt
                         int start_x = this.HeroQueue.First().GetCoordinates()[0];
                         int start_y = this.HeroQueue.First().GetCoordinates()[1];
 
+                        if (Tokens[1].Split(',').Count() != 2)
+                        {
+                            Console.WriteLine("Invalid format");
+                            continue;
+                        }
                         int end_x = int.Parse(Tokens[1].Split(',')[0]);
                         int end_y = int.Parse(Tokens[1].Split(',')[1]);
 
@@ -77,14 +86,14 @@ namespace OOANS_projekt
                         Coordinates.Add((i, j));
                         Console.WriteLine(Coordinates.Count + " coordinates");
 
-                        Command Command = new MoveCommand(Coordinates);
+                        Command MoveCommand = new MoveCommand(Coordinates);
 
                         lock (Refreshlock)
                         {
                             RefreshBattleField = true;
                             Monitor.PulseAll(Refreshlock);
                         }
-                        this.ExecuteCommand(Command);
+                        this.ExecuteCommand(MoveCommand);
                         lock (Refreshlock)
                         {
                             RefreshBattleField = false;
@@ -94,7 +103,10 @@ namespace OOANS_projekt
                         break;
                     case "skill":
                         break;
-                    case "collect":
+                    case "gather":
+                        Command GatherCommand = new GatherCommand(this.HeroQueue.First());
+                        this.ExecuteCommand(GatherCommand);
+                        this.RenderBattleField();
                         break;
                     case "end":
                         this.CommandStackNormal.Clear();

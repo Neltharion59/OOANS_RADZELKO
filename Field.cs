@@ -6,20 +6,38 @@ using System.Threading;
 
 namespace OOANS_projekt
 {
-    class Field : AbstractField
+    class Field : AbstractField, Subject
     {
         //TODO
-        public int x = -1;
-        public int y = -1;
+        public int x { get; } = -1;
+        public int y { get; } = -1;
 
         public AbstractField NextInChain { get; set; }
         public HeroInterface Hero { get; private set; }
-        public FieldState State { get; set;}
-        public Field()
+        public FieldState State { get; private set; }
+        public Resource Resource { get; set; }
+
+        private List<Observer> Observers;
+        public Field(int x, int y)
         {
             this.NextInChain = NullField.GetInstance();
             this.Hero = null;
             this.State = NormalFieldState.GetInstance();
+
+            this.x = x;
+            this.y = y;
+
+            this.Observers = new List<Observer>();
+        }
+
+        public Resource GatherResource(int Amount)
+        {
+            if (this.Resource == null)
+            {
+                return new Resource(ResourceType.None);
+            }
+            
+            return this.State.GatherResource(this, Amount);
         }
 
         public override bool MoveHero(HeroInterface Hero, Field Previous)
@@ -42,24 +60,38 @@ namespace OOANS_projekt
 
             Thread.Sleep(1000);
 
+            this.Notify();
+
             this.Hero = null;
-            Console.WriteLine("Field::MoveHero - next");
-            return this.NextInChain.MoveHero(Hero, this);
+
+            if (Hero.IsDead())
+            {
+                Console.WriteLine("Field::Hero died");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Field::MoveHero - next");
+                return this.NextInChain.MoveHero(Hero, this);
+            }
         }
         public FieldMemento CreateMemento()
         {
             FieldMemento Memento = new FieldMemento();
             Memento.State = this.State.CreateMemento();
+            Memento.Resource = this.Resource == null ? null : this.Resource.CreateMemento();
 
             return Memento;
         }
         public void Restore(FieldMemento Memento)
         {
-            this.State = Memento.State.State;
+            this.SetStateSimple(Memento.State.State);
             this.State.Restore(Memento.State);
 
             this.NextInChain = NullField.GetInstance();
             this.Hero = null;
+
+            this.Resource = Memento.Resource == null ? null : Memento.Resource.ProduceOrigin();
         }
 
         public void SetHero(HeroInterface Hero)
@@ -74,7 +106,35 @@ namespace OOANS_projekt
 
         public String ToScreenText()
         {
-            return this.State.ToScreenText();
+            return this.State.ToScreenText() + (this.Resource == null ? "" : ("-" + this.Resource.Type.ToString()[0] + ":" + Resource.Amount));
+        }
+
+        public void SetStateSimple(FieldState State)
+        {
+            this.State = State;
+        }
+        public void SetStateNew(FieldState State)
+        {
+            this.State = State;
+            State.ProduceResource(this);
+        }
+
+        public void Register(Observer Observer)
+        {
+            this.Observers.Add(Observer);
+        }
+
+        public void Unregister(Observer Observer)
+        {
+            this.Observers.Remove(Observer);
+        }
+
+        public void Notify()
+        {
+            foreach(Observer Observer in this.Observers)
+            {
+                Observer.Update(this);
+            }
         }
     }
 }

@@ -8,7 +8,8 @@ namespace OOANS_projekt
 {
     interface HeroInterface
     {
-        bool Move(int MoveCost);
+        bool PayActionCost(int ActionCost);
+        void BoostActionPoints(int Amount);
         bool IsDead();
         HeroMemento CreateMemento();
         void Restore(HeroMemento Memento);
@@ -16,5 +17,7 @@ namespace OOANS_projekt
         void SetCoordinates(int x, int y);
         int[] GetCoordinates();
         int GetRemainingSteps();
+        int GetHavervestPower();
+        bool AddResource(Resource Resource);
     }
 }

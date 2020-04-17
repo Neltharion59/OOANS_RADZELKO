@@ -13,15 +13,6 @@ namespace OOANS_projekt
 
         public Battlefield(List<List<Field>> BattleGrid)
         {
-            for (int i = 0; i < BattleGrid.Count; i++)
-            {
-                for (int j = 0; j < BattleGrid[i].Count; j++)
-                {
-                    BattleGrid[i][j].x = i;
-                    BattleGrid[i][j].y = j;
-                }
-            }
-
             this.BattleGrid = BattleGrid;
 
             this.Heroes = new List<HeroInterface>();
@@ -58,10 +49,8 @@ namespace OOANS_projekt
                 Result.Last()[0] = i;
                 for (int j = 0; j < BattleGrid[i].Count; j++)
                 {
-                    BattleGrid[i][j].x = i;
-                    BattleGrid[i][j].y = j;
-
-                    Result.Last()[j + 1] = BattleGrid[i][j].ToScreenText() + ", " + (BattleGrid[i][j].Hero == null ? "E" : "H");
+                    Result.Last()[j + 1] = BattleGrid[i][j].ToScreenText() + ", " + 
+                        (BattleGrid[i][j].Hero == null ? "E" : "H");
                 }
             }
             return Result;

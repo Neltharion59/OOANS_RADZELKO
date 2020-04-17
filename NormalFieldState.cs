@@ -25,25 +25,25 @@ namespace OOANS_projekt
 
         public override string ToScreenText()
         {
-            return "Normal";
+            return "Norm";
         }
 
-        protected override int GetEntryCost()
+        public override void UpdateFieldStateAfterGathering(Field Field)
+        {
+        }
+
+        public override int GetEntryCost()
         {
             return NormalFieldState.EntryCost;
         }
 
-        protected override bool PermitEntry()
+        public override bool PermitEntry()
         {
             return true;
         }
-
-        protected override void TriggerTraps(HeroInterface Hero)
+        public override void ProduceResource(Field Field)
         {
-        }
-
-        protected override void UpdateFieldState(Field Field)
-        {
+            Field.Resource = null;
         }
     }
 }

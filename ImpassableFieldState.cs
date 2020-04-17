@@ -24,25 +24,27 @@ namespace OOANS_projekt
 
         public override string ToScreenText()
         {
-            return "Impassable";
+            return "Mt";
         }
 
-        protected override int GetEntryCost()
+        public override void UpdateFieldStateAfterGathering(Field Field)
+        {
+            Field.SetStateNew(NormalFieldState.GetInstance());
+        }
+
+        public override int GetEntryCost()
         {
             return int.MaxValue;
         }
 
-        protected override bool PermitEntry()
+        public override bool PermitEntry()
         {
             return false;
         }
 
-        protected override void TriggerTraps(HeroInterface Hero)
+        public override void ProduceResource(Field Field)
         {
-        }
-
-        protected override void UpdateFieldState(Field Field)
-        {
+            Field.Resource = new Resource(ResourceType.Iron, 3);
         }
     }
 }
