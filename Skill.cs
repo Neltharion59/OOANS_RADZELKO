@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    abstract class Skill
+    abstract class Skill : ObserverInterface
     {
-        public void Use(HeroInterface Target)
-        {
-
-        }
+        public String Name { get; set; }
+        public int Range { get; set; }
+        public int MaxTargets { get; set; }
+        public bool Passive { get; set; }
+        public int TriggerTreshold { get; set; }
+        public ITriggerBehaviour TriggerBehaviour { get; set; }
+    
+        public abstract void Use(Battlefield battlefield, List<Field> targets, double coeficient);
+        public abstract void Trigger(Battlefield battlefield, Field source);
+        public abstract void Update(ObserverSubject subject, HeroInterface parentHero);
+        
         public virtual SkillMemento CreateMemento()
         {
             SkillMemento Memento = new SkillMemento();

@@ -8,15 +8,25 @@ namespace OOANS_projekt
 {
     class Hero : HeroInterface
     {
+        //Lukas
         public int ActionPoints { get; set; }
         public int RemainingActionPoints { get; set; }
         public int x;
         public int y;
         public int HarvestPower;
         private HeroInventory Inventory;
+        //Miso
+        public List<Skill> Skills { get; set; }
+        public HealthStat HP { get; set; }
+        public String name { get; set; }
 
-        public Hero()
+        public Hero(List<Skill> Skills, int HealthPoints, String name)
         {
+            this.Skills = Skills;
+            this.HP = new HealthStat(HealthPoints, this);
+            this.name = name;
+            
+            
             this.ActionPoints = 0;
             this.RemainingActionPoints = 0;
 
@@ -27,6 +37,7 @@ namespace OOANS_projekt
 
             this.Inventory = new HeroInventory();
         }
+        //Lukas
         public bool IsDead()
         {
             return false;
@@ -95,6 +106,46 @@ namespace OOANS_projekt
         public void BoostActionPoints(int Amount)
         {
             this.RemainingActionPoints += Amount;
+        }
+        //Miso
+        public Skill GetSkill(int id) //TODO vymyslet to inak?  nie podla id
+        {
+            return this.Skills[id];
+        }
+
+        public HealthStat GetHealthStat()
+        {
+            return this.HP;
+        }
+
+        public String GetHeroName()
+        {
+            return this.name;
+        }
+
+        public void DealDamage(int amount)
+        {
+            this.HP.DealDamage(amount);
+        }
+
+        public void HealHealth(int amount)
+        {
+            this.HP.Heal(amount);
+        }
+
+        public void AddEffect(Effect effect)
+        {
+            
+        }
+
+        public void RemoveEffect(Effect effect)
+        {
+            
+        }
+
+        public double CalculateDamageModifier()
+        {
+            return 1.0;
         }
     }
 }

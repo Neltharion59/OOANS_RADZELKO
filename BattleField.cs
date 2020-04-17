@@ -26,6 +26,7 @@ namespace OOANS_projekt
             }
             catch (Exception e)
             {
+                //Console.WriteLine(e);
             }
             return Result;
         }
