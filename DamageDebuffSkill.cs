@@ -15,20 +15,13 @@ namespace OOANS_projekt
             this.Name = name;
         }
 
-        public override void Trigger(Battlefield battlefield, Field source)
+        public override void Use(List<Field> targets, double coeficient)
         {
-            //base.Trigger(battlefield, source);
-            TriggerBehaviour.Trigger(this, battlefield, source, false);
+            base.Use(targets, coeficient);
+            ApplyDebuff(targets);
         }
 
-        public override void Use(Battlefield battlefield, List<Field> targets, double coeficient)
-        {
-            base.Use(battlefield, targets, coeficient);
-            ApplyDebuff(battlefield, targets);
-
-        }
-
-        private void ApplyDebuff(Battlefield battlefield, List<Field> targets)
+        private void ApplyDebuff(List<Field> targets)
         {
             foreach (Field target in targets)
             {
@@ -40,9 +33,9 @@ namespace OOANS_projekt
             }
         }
 
-        public override void Update(ObserverSubject subject, HeroInterface parentHero)
+        public override bool TargetSelf()
         {
-            base.Update(subject, parentHero);
+            return false;
         }
     }
 }

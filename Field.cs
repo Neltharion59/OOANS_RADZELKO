@@ -119,21 +119,21 @@ namespace OOANS_projekt
             State.ProduceResource(this);
         }
 
-        public void Register(Observer Observer)
+        public void Register(Observer Observer, bool Readonly)
         {
             this.Observers.Add(Observer);
         }
 
-        public void Unregister(Observer Observer)
+        public void Unregister(Observer Observer, bool Readonly)
         {
             this.Observers.Remove(Observer);
         }
 
         public void Notify()
         {
-            foreach(Observer Observer in this.Observers)
+            for (int i = this.Observers.Count - 1; i >= 0; i--)
             {
-                Observer.Update(this);
+                this.Observers[i].Update(this);
             }
         }
     }

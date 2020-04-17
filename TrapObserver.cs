@@ -23,7 +23,10 @@ namespace OOANS_projekt
         {
             Console.WriteLine("Trap Triggered");
             //TODO - create use skill command
-            Subject.Unregister(this);
+            Subject.Unregister(this, false);
+
+            UseSkillCommand Command = new UseSkillCommand(Skill, BattleController.Battlefield.GetField(x, y), Skill.TriggerBehaviour);
+            BattleController.ExecuteCommand(Command);
         }
     }
 }

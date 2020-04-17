@@ -6,43 +6,55 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class HealthStat : ObserverSubject //observer subjekt
+    class HealthStat : Subject //observer subjekt
     {
         public int MaximumHP { get; set; }
         public int ActualHP { get; set; }
-        public override List<ObserverInterface> Observers { get; set; }
-        public Hero parentHero { get; set; }
+        private List<Observer> ReadOnlyObservers { get; set; }
+        private List<Observer> WriteObservers { get; set; }
+        private bool IsNotificating;
 
-        public HealthStat(int MaximumHP, Hero parentHero)
+        public HealthStat(int MaximumHP)
         {
             this.MaximumHP = MaximumHP;
             this.ActualHP = MaximumHP;
-            this.Observers = new List<ObserverInterface>();
-            this.parentHero = parentHero;
+            this.ReadOnlyObservers = new List<Observer>();
+            this.WriteObservers = new List<Observer>();
+            this.IsNotificating = false;
         }
 
-        public override void RegisterObserver(ObserverInterface observer)
+        public void Register(Observer observer, bool ReadOnly)
         {
+            List<Observer> Observers = ReadOnly ? ReadOnlyObservers : WriteObservers;
             if (!Observers.Contains(observer))
             {
-                this.Observers.Add(observer);
+                Observers.Add(observer);
             }
         }
 
-        public override void UnregisterObserver(ObserverInterface observer)
+        public void Unregister(Observer observer, bool ReadOnly)
         {
-            if (Observers.Contains(observer))
-            {
-                this.Observers.Remove(observer);
-            }
+            List<Observer> Observers = ReadOnly ? ReadOnlyObservers : WriteObservers;
+            Observers.Remove(observer);
         }
 
-        public override void NotifyObservers()
+        public void Notify()
         {
-            foreach (ObserverInterface observer in Observers)
+            foreach (Observer observer in this.ReadOnlyObservers)
             {
-                observer.Update(this, this.parentHero);
+                observer.Update(this);
             }
+
+            if (IsNotificating)
+            {
+                return;
+            }
+
+            IsNotificating = true;
+            foreach (Observer observer in this.WriteObservers)
+            {
+                observer.Update(this);
+            }         
         }
 
 
@@ -51,7 +63,7 @@ namespace OOANS_projekt
             if (amount > 0)
             {
                 this.ActualHP -= amount;
-                NotifyObservers();
+                Notify();
             }
         }
 
@@ -64,7 +76,7 @@ namespace OOANS_projekt
                 {
                     this.ActualHP = MaximumHP;
                 }
-                NotifyObservers();
+                Notify();
             }
         }
 

@@ -12,9 +12,9 @@ namespace OOANS_projekt
         //public override ITriggerBehaviour TriggerBehaviour { get; set; }
         public int DamageAmount { get; set; }
 
-        public CauseDamageSkill(String Effect, int DamageAmount, ITriggerBehaviour TriggerBehaviour, int range, int maxTargets, int Treshold, bool pass)
+        public CauseDamageSkill(String Name, int DamageAmount, ITriggerBehaviour TriggerBehaviour, int range, int maxTargets, int Treshold, bool pass)
         {
-            this.Name = Effect;
+            this.Name = Name;
             this.DamageAmount = DamageAmount;
             this.TriggerBehaviour = TriggerBehaviour;
             this.Range = range;
@@ -23,12 +23,7 @@ namespace OOANS_projekt
             this.Passive = pass;
         }
 
-        public override void Trigger(Battlefield battlefield, Field source)
-        {
-            TriggerBehaviour.Trigger(this, battlefield, source, false);
-        }
-
-        public override void Use(Battlefield battlefield, List<Field> targets, double coeficient)
+        public override void Use(List<Field> targets, double coeficient)
         {
             foreach (Field target in targets)
             {
@@ -43,21 +38,9 @@ namespace OOANS_projekt
             }
         }
 
-        public override void Update(ObserverSubject subject, HeroInterface parentHero)
+        public override bool TargetSelf()
         {
-            if (this.Passive) //tato podmienka tu teoreticky byt nemusi kedze active skill nebude registrovany u subjekta
-            {
-                int MaxHP = ((HealthStat)subject).MaximumHP;
-                int ActualHP = ((HealthStat)subject).ActualHP;
-
-                if (ActualHP < this.TriggerTreshold)
-                {
-                    Console.WriteLine("akoze passive dmg skill triggered, TODO, observer funguje");
-                    //this.Trigger(battlefield: battlefield, Field: source);  //todo dostat sa cez hrdinu k fieldu
-
-                }
-            }
+            return false;
         }
-
     }
 }

@@ -27,7 +27,7 @@ namespace OOANS_projekt
                 return false;
             }
 
-            Resource Resource = Field.GatherResource(GatheringHero.GetHavervestPower());
+            Resource Resource = Field.GatherResource(GatheringHero.GetHarvestPower());
             if (Resource.Type == ResourceType.None)
             {
                 return false;

@@ -14,14 +14,19 @@ namespace OOANS_projekt
         public int damageVulnerability { get; set; }
         public int damageIncrease { get; set; }
         public int damageReduce { get; set; }
-
-
+        private int RemainingActionPoints { get; set; }
+        public int x;
+        public int y;
         public ProxyHero(Hero Hero)
         {
             this.RealHero = Hero;
             this.Effects = new List<Effect>();
             this.damageResistance = 0;
             this.damageVulnerability = 0;
+
+            this.x = -1;
+            this.y = -1;
+            this.RemainingActionPoints = RealHero.ActionPoints;
         }
 
         public Skill GetSkill(int id)
@@ -73,5 +78,71 @@ namespace OOANS_projekt
             return  1.0 + (this.damageIncrease/100.0 - this.damageReduce/100.0);
         }
 
+        public bool PayActionCost(int ActionCost)
+        {
+            if (ActionCost > RemainingActionPoints)
+            {
+                return false;
+            }
+            RemainingActionPoints -= ActionCost;
+            return true;
+        }
+
+        public void BoostActionPoints(int Amount)
+        {
+            this.RemainingActionPoints += Amount;
+        }
+
+        public bool IsDead()
+        {
+            return RealHero.IsDead();
+        }
+
+        public HeroMemento CreateMemento()
+        {
+            //throw new NotImplementedException();
+            return null;
+        }
+
+        public void Restore(HeroMemento Memento)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RestoreTurn()
+        {
+            this.RemainingActionPoints = this.RealHero.ActionPoints;
+        }
+
+        public void SetCoordinates(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int[] GetCoordinates()
+        {
+            return new int[] { x, y };
+        }
+
+        public int GetRemainingSteps()
+        {
+            return this.RemainingActionPoints;
+        }
+
+        public int GetHarvestPower()
+        {
+            return this.RealHero.GetHarvestPower();
+        }
+
+        public bool AddResource(Resource Resource)
+        {
+            return this.RealHero.AddResource(Resource);
+        }
+
+        public List<Skill> GetAllPasiveSkills()
+        {
+            return this.RealHero.GetAllPasiveSkills();
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace OOANS_projekt
 {
     interface Subject
     {
-        void Register(Observer Observer);
-        void Unregister(Observer Observer);
+        void Register(Observer Observer, bool ReadOnly);
+        void Unregister(Observer Observer, bool ReadOnly);
         void Notify();
     }
 }
