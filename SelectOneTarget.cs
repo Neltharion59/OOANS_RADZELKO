@@ -8,6 +8,16 @@ namespace OOANS_projekt
 {
     class SelectOneTarget : ITriggerBehaviour
     {
+        private static SelectOneTarget Instance = null;
+        private SelectOneTarget() { }
+        public static SelectOneTarget GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new SelectOneTarget();
+            }
+            return Instance;
+        }
         public double CalculateCoeficient(Field source, int MaxTargets)
         {
             //Console.WriteLine("Calculate coeficient: " + source.Hero.CalculateDamageModifier());

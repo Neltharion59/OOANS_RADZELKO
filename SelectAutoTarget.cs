@@ -8,6 +8,16 @@ namespace OOANS_projekt
 {
     class SelectAutoTarget : ITriggerBehaviour
     {
+        private static SelectAutoTarget Instance = null;
+        private SelectAutoTarget() { }
+        public static SelectAutoTarget GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new SelectAutoTarget();
+            }
+            return Instance;
+        }
         public  double CalculateCoeficient(Field source, int MaxTargets)
         {
             return MaxTargets > 1 ? 0.5 * source.Hero.CalculateDamageModifier() : 1 * source.Hero.CalculateDamageModifier();

@@ -43,7 +43,7 @@ namespace OOANS_projekt
                 new CauseDamageSkill(
                     "Passive self damage",
                     20,
-                    new SelectSelf(),
+                    SelectSelf.GetInstance(),
                     1,
                     1,
                     90,
@@ -54,7 +54,7 @@ namespace OOANS_projekt
                 new HealSkill(
                     "Passive self healing",
                     20,
-                    new SelectSelf(),
+                    SelectSelf.GetInstance(),
                     1,
                     1,
                     80,
@@ -84,15 +84,15 @@ namespace OOANS_projekt
             
 
             SkillPlaceTrap Skill = new SkillPlaceTrap(
-                new CauseDamageSkill("Pascokiller", 20, new SelectSelf(), 1, 1, 50, false),
+                new CauseDamageSkill("Pascokiller", 20, SelectSelf.GetInstance(), 1, 1, 50, false),
                 "Trapp-Placing skill",
-                new SelectOneTarget(),
+                SelectOneTarget.GetInstance(),
                 1,
                 1,
                 20,
                 false
             );
-            this.ExecuteCommand(new UseSkillCommand(Skill, Battlefield.GetField(0, 0), new SelectOneTarget()));
+            this.ExecuteCommand(new UseSkillCommand(Skill, Battlefield.GetField(0, 0), SelectOneTarget.GetInstance()));
 
             ReceiveCommands();
 

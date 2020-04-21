@@ -8,6 +8,16 @@ namespace OOANS_projekt
 {
     class SelectArea : ITriggerBehaviour
     {
+        private static SelectArea Instance = null;
+        private SelectArea() { }
+        public static SelectArea GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new SelectArea();
+            }
+            return Instance;
+        }
         public double CalculateCoeficient(Field source, int MaxTargets)
         {
             return 0.5 * source.Hero.CalculateDamageModifier();
