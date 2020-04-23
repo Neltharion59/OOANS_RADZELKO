@@ -34,7 +34,7 @@ namespace OOANS_projekt
         {
             if (this.Resource == null)
             {
-                return new Resource(ResourceType.None);
+                return new Resource();
             }
             
             return this.State.GatherResource(this, Amount);

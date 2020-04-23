@@ -10,7 +10,7 @@ namespace OOANS_projekt
     {
         public int Amount { get; private set; }
         public ResourceType Type { get; }
-        public Resource(ResourceType Type, int Amount = 0)
+        public Resource(ResourceType Type = ResourceType.None, int Amount = 0)
         {
             this.Type = Type;
             this.Amount = Amount;
@@ -55,7 +55,7 @@ namespace OOANS_projekt
         }
         public bool IsDepleted()
         {
-            return this.Amount <= 0 ? true : false;
+            return (this.Amount <= 0 || this.Type == ResourceType.None) ? true : false;
         }
 
         public ResourceMemento CreateMemento()

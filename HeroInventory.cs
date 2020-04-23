@@ -15,7 +15,7 @@ namespace OOANS_projekt
         }
         public bool AddResource(Resource Resource)
         {
-            if (Resource.Type == ResourceType.None)
+            if (Resource.IsDepleted())
             {
                 return false;
             }
