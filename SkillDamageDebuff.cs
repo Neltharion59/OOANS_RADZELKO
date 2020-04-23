@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class DamageDebuffSkill : ComposedSkill
+    class SkillDamageDebuff : SkillComposed
     {
         public Effect debuff;
-        public DamageDebuffSkill(Skill DecoratedSkill, Effect debuff, String name) : base(DecoratedSkill)
+        public SkillDamageDebuff(Skill DecoratedSkill, Effect debuff, String name) : base(DecoratedSkill)
         {
             this.debuff = debuff;
             this.Name = name;

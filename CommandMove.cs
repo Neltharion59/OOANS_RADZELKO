@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class MoveCommand : Command
+    class CommandMove : Command
     {
         private List<(int, int)> PathCoordinates { get; }
 
-        public MoveCommand(List<(int, int)> PathCoordinates)
+        public CommandMove(List<(int, int)> PathCoordinates)
         {
             this.PathCoordinates = PathCoordinates;
         }

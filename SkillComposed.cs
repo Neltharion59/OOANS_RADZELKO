@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    abstract class ComposedSkill : Skill
+    abstract class SkillComposed : Skill
     {
         public Skill DecoratedSkill;
 
-        public ComposedSkill(Skill skill)
+        public SkillComposed(Skill skill)
         {
             this.DecoratedSkill = skill;
         }

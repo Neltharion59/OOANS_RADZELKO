@@ -33,17 +33,17 @@ namespace OOANS_projekt
 
         public Observer RequestObserver(HeroInterface Hero)
         {
-            BattleScreen Observer = new BattleScreen(Hero);
+            BattleScreenHeroHealthBar Observer = new BattleScreenHeroHealthBar(Hero);
             return Observer;
         }
         public Observer RequestObserver(Skill Skill, HeroInterface OwningHero)
         {
-            PassiveSkillObserver Observer = new PassiveSkillObserver(this.BattleController, Skill, OwningHero);
+            ObserverPassiveSkill Observer = new ObserverPassiveSkill(this.BattleController, Skill, OwningHero);
             return Observer;
         }
         public Observer RequestObserver(Skill Skill, int x, int y)
         {
-            TrapObserver Observer = new TrapObserver(this.BattleController, Skill, x, y);
+            ObserverTrap Observer = new ObserverTrap(this.BattleController, Skill, x, y);
             return Observer;
         }
     }

@@ -46,15 +46,6 @@ namespace OOANS_projekt
         }
         public abstract void UpdateFieldStateAfterGathering(Field Field);
         public abstract void ProduceResource(Field Field);
-        public virtual FieldStateMemento CreateMemento()
-        {
-            FieldStateMemento Memento = new FieldStateMemento();
-            Memento.State = this;
-            return Memento;
-        }
-        public virtual void Restore(FieldStateMemento Memento)
-        {
-        }
         public abstract String ToScreenText();
     }
 }

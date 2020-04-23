@@ -54,7 +54,8 @@ namespace OOANS_projekt
             foreach (Observer observer in this.WriteObservers)
             {
                 observer.Update(this);
-            }         
+            }
+            IsNotificating = false;
         }
 
 

@@ -19,7 +19,7 @@ namespace OOANS_projekt
 
         public override void Apply(HeroInterface hero)
         {
-            ((ProxyHero)hero).damageResistance = this.DamageResistance;
+            ((HeroProxy)hero).damageResistance = this.DamageResistance;
         }
     }
 }

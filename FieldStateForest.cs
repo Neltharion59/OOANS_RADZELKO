@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class ForestFieldState : FieldState
+    class FieldStateForest : FieldState
     {
-        private static ForestFieldState Instance = null;
-        private ForestFieldState() { }
-        public static ForestFieldState GetInstance()
+        private static readonly int EntryCost = 2;
+        private static FieldStateForest Instance = null;
+        private FieldStateForest() { }
+        public static FieldStateForest GetInstance()
         {
-            if (ForestFieldState.Instance == null)
+            if (FieldStateForest.Instance == null)
             {
-                ForestFieldState.Instance = new ForestFieldState();
+                FieldStateForest.Instance = new FieldStateForest();
             }
 
-            return ForestFieldState.Instance;
+            return FieldStateForest.Instance;
         }
         public override int GetEntryCost()
         {
-            return 2;
+            return EntryCost;
         }
 
         public override bool PermitEntry()
@@ -41,7 +42,7 @@ namespace OOANS_projekt
 
         public override void UpdateFieldStateAfterGathering(Field Field)
         {
-            Field.SetStateNew(NormalFieldState.GetInstance());
+            Field.SetStateNew(FieldStateNormal.GetInstance());
         }
     }
 }

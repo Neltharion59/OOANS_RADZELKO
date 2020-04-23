@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class ImpassableFieldState : FieldState
+    class FieldStateImpassable : FieldState
     {
-        private static ImpassableFieldState Instance = null;
-        private ImpassableFieldState() : base()
+        private static readonly int EntryCost = int.MaxValue;
+        private static FieldStateImpassable Instance = null;
+        private FieldStateImpassable() : base()
         {
         }
-        public static ImpassableFieldState GetInstance()
+        public static FieldStateImpassable GetInstance()
         {
-            if (ImpassableFieldState.Instance == null)
+            if (FieldStateImpassable.Instance == null)
             {
-                ImpassableFieldState.Instance = new ImpassableFieldState();
+                FieldStateImpassable.Instance = new FieldStateImpassable();
             }
 
-            return ImpassableFieldState.Instance;
+            return FieldStateImpassable.Instance;
         }
 
         public override string ToScreenText()
@@ -29,12 +30,12 @@ namespace OOANS_projekt
 
         public override void UpdateFieldStateAfterGathering(Field Field)
         {
-            Field.SetStateNew(NormalFieldState.GetInstance());
+            Field.SetStateNew(FieldStateNormal.GetInstance());
         }
 
         public override int GetEntryCost()
         {
-            return int.MaxValue;
+            return EntryCost;
         }
 
         public override bool PermitEntry()

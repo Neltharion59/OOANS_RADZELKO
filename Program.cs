@@ -55,26 +55,26 @@ namespace OOANS_projekt
             //skillList.Add(new HealSkill("Basic heal", 10, 0)); 
             //PassiveSkillTriggering pst = new PassiveSkillTriggering(90, skillList.Last(), Battlefield);
             //skillList.Last().TriggerBehaviour = pst;        //todo setter pre pasivny behaviour
-            skillList.Add(new HealSkill("Basic heal", 10, SelectSelf.GetInstance(), 1, 1, 90, true));
+            skillList.Add(new SkillHeal("Basic heal", 10, SelectSelf.GetInstance(), 1, 1, 90, true));
 
             //todo vymazat, posielat hera cez notify observera
             //((PassiveSkillTriggering)skillList.Last().TriggerBehaviour).source = Battlefield.GetField(1,1);
 
-            skillList.Add(new CauseDamageSkill("Basic attack", 10, SelectArea.GetInstance(), 1, 1, 0, false));
+            skillList.Add(new SkillDamage("Basic attack", 10, SelectArea.GetInstance(), 1, 1, 0, false));
 
-            skillList.Add(new HealSkill("AoE heal", 10, SelectArea.GetInstance(), 2, 1, 90, false));
+            skillList.Add(new SkillHeal("AoE heal", 10, SelectArea.GetInstance(), 2, 1, 90, false));
 
-            skillList.Add(new HealSkill("Chain heal", 10, null, 2, 4, 0, false));
+            skillList.Add(new SkillHeal("Chain heal", 10, null, 2, 4, 0, false));
 
-            skillList.Add(new DamageDebuffSkill(new CauseDamageSkill("Fist punch", 1, SelectOneTarget.GetInstance(),
+            skillList.Add(new SkillDamageDebuff(new SkillDamage("Fist punch", 1, SelectOneTarget.GetInstance(),
                 1, 1, 0, false), new DamageVulnerabilityDebuff("50% damageVulnerability", 2, 50), "Fist debuff"));
 
-            skillList.Add(new HealBuffSkill(new HealSkill("Healing touch", 1, SelectOneTarget.GetInstance(), 1, 1, 0, false),
+            skillList.Add(new SkillHealBuff(new SkillHeal("Healing touch", 1, SelectOneTarget.GetInstance(), 1, 1, 0, false),
                 new DamageIncreaseBuff("Increase damage 50% buff", 2, 50), "Healing damage buff"));
 
 
             //vytvor hrdinu
-            HeroInterface Hrdina = new ProxyHero(new Hero(Skills: skillList, HealthPoints: 100, name: "Hero2"));
+            HeroInterface Hrdina = new HeroProxy(new Hero(Skills: skillList, HealthPoints: 100, name: "Hero2"));
             //pridaj hrdinu na mapu
             Battlefield.GetField(1, 1).SetHero(Hrdina);
 
@@ -85,25 +85,25 @@ namespace OOANS_projekt
             //Command useSkillCommand1 = new UseSkillCommand(Battlefield.GetField(1,1).Hero.GetSkill(0), Battlefield.GetField(1,1));
             //useSkillCommand1.Execute(Battlefield);
 
-            Command useSkillCommand2 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
+            Command useSkillCommand2 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
             useSkillCommand2.Execute(Battlefield);
-            Command useSkillCommand3 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectArea.GetInstance());
+            Command useSkillCommand3 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectArea.GetInstance());
             useSkillCommand3.Execute(Battlefield);
-            Command useSkillCommand4 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(2), Battlefield.GetField(1, 1), SelectArea.GetInstance());
+            Command useSkillCommand4 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(2), Battlefield.GetField(1, 1), SelectArea.GetInstance());
             useSkillCommand4.Execute(Battlefield);
-            Command useSkillCommand5 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(3), Battlefield.GetField(1, 1), SelectAutoTarget.GetInstance());
+            Command useSkillCommand5 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(3), Battlefield.GetField(1, 1), SelectAutoTarget.GetInstance());
             useSkillCommand5.Execute(Battlefield);
 
-            Command useSkillCommand6 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(4), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
+            Command useSkillCommand6 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(4), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
             useSkillCommand6.Execute(Battlefield);
 
-            Command useSkillCommand7 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
+            Command useSkillCommand7 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
             useSkillCommand7.Execute(Battlefield);
 
-            Command useSkillCommand8 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(5), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
+            Command useSkillCommand8 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(5), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
             useSkillCommand8.Execute(Battlefield);
 
-            Command useSkillCommand9 = new UseSkillCommand(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
+            Command useSkillCommand9 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
             useSkillCommand9.Execute(Battlefield);
 
             //Console.WriteLine("Aktual hero hp: " + Battlefield.GetField(1, 1).Hero.GetHealthStat().ActualHP);

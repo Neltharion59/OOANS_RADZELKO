@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class ProxyHero : HeroInterface
+    class HeroProxy : HeroInterface
     {
         public Hero RealHero { get; set; }
         public List<Effect> Effects { get; set; } //TODO naco nam je potom toto, ked vyprsi efekt tak potom vdaka tomuto bude vediet co odratat,
@@ -17,7 +17,7 @@ namespace OOANS_projekt
         private int RemainingActionPoints { get; set; }
         public int x;
         public int y;
-        public ProxyHero(Hero Hero)
+        public HeroProxy(Hero Hero)
         {
             this.RealHero = Hero;
             this.Effects = new List<Effect>();

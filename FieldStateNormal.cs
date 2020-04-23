@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class NormalFieldState : FieldState
+    class FieldStateNormal : FieldState
     {
-        private static int EntryCost = 1;
-        private static NormalFieldState Instance = null;
-        private NormalFieldState() : base()
+        private static readonly int EntryCost = 1;
+        private static FieldStateNormal Instance = null;
+        private FieldStateNormal() : base()
         {
         }
-        public static NormalFieldState GetInstance()
+        public static FieldStateNormal GetInstance()
         {
-            if (NormalFieldState.Instance == null)
+            if (FieldStateNormal.Instance == null)
             {
-                NormalFieldState.Instance = new NormalFieldState();
+                FieldStateNormal.Instance = new FieldStateNormal();
             }
 
-            return NormalFieldState.Instance;
+            return FieldStateNormal.Instance;
         }
 
         public override string ToScreenText()
@@ -34,7 +34,7 @@ namespace OOANS_projekt
 
         public override int GetEntryCost()
         {
-            return NormalFieldState.EntryCost;
+            return EntryCost;
         }
 
         public override bool PermitEntry()

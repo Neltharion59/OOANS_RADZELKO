@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class HealBuffSkill : ComposedSkill
+    class SkillHealBuff : SkillComposed
     {
         public Effect buff;
-        public HealBuffSkill(Skill DecoratedSkill, Effect buff, String name) : base(DecoratedSkill)
+        public SkillHealBuff(Skill DecoratedSkill, Effect buff, String name) : base(DecoratedSkill)
         {
             this.buff = buff;
             this.Name = name;

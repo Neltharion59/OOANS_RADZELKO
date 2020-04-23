@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class BattleScreen : Observer
+    class BattleScreenHeroHealthBar : Observer
     {
         private HeroInterface Hero;
-        public BattleScreen(HeroInterface Hero)
+        public BattleScreenHeroHealthBar(HeroInterface Hero)
         {
             this.Hero = Hero;
         }

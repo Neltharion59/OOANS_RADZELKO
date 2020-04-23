@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class CauseDamageSkill : Skill
+    class SkillDamage : Skill
     {
         //public override string Effect { get; set; }
         //public override ITriggerBehaviour TriggerBehaviour { get; set; }
         public int DamageAmount { get; set; }
 
-        public CauseDamageSkill(String Name, int DamageAmount, ITriggerBehaviour TriggerBehaviour, int range, int maxTargets, int Treshold, bool pass)
+        public SkillDamage(String Name, int DamageAmount, ITriggerBehaviour TriggerBehaviour, int range, int maxTargets, int Treshold, bool pass)
         {
             this.Name = Name;
             this.DamageAmount = DamageAmount;

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class UseSkillCommand : Command
+    class CommandUseSkill : Command
     {
         Skill UsedSkill;
         Field source;
 
-        public UseSkillCommand(Skill UsedSkill, Field source, ITriggerBehaviour triggerBehaviour)
+        public CommandUseSkill(Skill UsedSkill, Field source, ITriggerBehaviour triggerBehaviour)
         {
             this.UsedSkill = UsedSkill;
             this.source = source;

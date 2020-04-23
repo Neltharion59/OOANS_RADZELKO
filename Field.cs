@@ -22,7 +22,7 @@ namespace OOANS_projekt
         {
             this.NextInChain = NullField.GetInstance();
             this.Hero = null;
-            this.State = NormalFieldState.GetInstance();
+            this.State = FieldStateNormal.GetInstance();
 
             this.x = x;
             this.y = y;
@@ -78,15 +78,14 @@ namespace OOANS_projekt
         public FieldMemento CreateMemento()
         {
             FieldMemento Memento = new FieldMemento();
-            Memento.State = this.State.CreateMemento();
+            Memento.State = this.State;
             Memento.Resource = this.Resource == null ? null : this.Resource.CreateMemento();
 
             return Memento;
         }
         public void Restore(FieldMemento Memento)
         {
-            this.SetStateSimple(Memento.State.State);
-            this.State.Restore(Memento.State);
+            this.SetStateSimple(Memento.State);
 
             this.NextInChain = NullField.GetInstance();
             this.Hero = null;

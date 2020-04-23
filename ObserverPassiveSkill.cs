@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class PassiveSkillObserver : Observer
+    class ObserverPassiveSkill : Observer
     {
         private BattleController BattleController { get; }
         private Skill Skill { get; }
         private HeroInterface SkillOwner { get; }
         //private bool WasActivated;
-        public PassiveSkillObserver(BattleController BattleController, Skill Skill, HeroInterface SkillOwner)
+        public ObserverPassiveSkill(BattleController BattleController, Skill Skill, HeroInterface SkillOwner)
         {
             this.BattleController = BattleController;
             this.Skill = Skill;
@@ -35,7 +35,7 @@ namespace OOANS_projekt
             WasActivated = true;*/
             Console.WriteLine("Passive Skill Triggered");
 
-            UseSkillCommand Command = new UseSkillCommand(Skill, BattleController.Battlefield.GetField(SkillOwner), Skill.TriggerBehaviour);
+            CommandUseSkill Command = new CommandUseSkill(Skill, BattleController.Battlefield.GetField(SkillOwner), Skill.TriggerBehaviour);
             BattleController.ExecuteCommand(Command);
         }
     }

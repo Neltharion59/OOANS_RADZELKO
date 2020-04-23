@@ -23,16 +23,16 @@ namespace OOANS_projekt
             this.Over = false;
             ObserverFactory.GetInstance().Init(this);
 
-            Fields[0][1].SetStateNew(ForestFieldState.GetInstance());
-            Fields[0][3].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[0][1].SetStateNew(FieldStateForest.GetInstance());
+            Fields[0][3].SetStateNew(FieldStateImpassable.GetInstance());
 
-            Fields[2][2].SetStateNew(ImpassableFieldState.GetInstance());
-            Fields[2][3].SetStateNew(ImpassableFieldState.GetInstance());
-            Fields[3][2].SetStateNew(ImpassableFieldState.GetInstance());
-            Fields[3][3].SetStateNew(ImpassableFieldState.GetInstance());
+            Fields[2][2].SetStateNew(FieldStateImpassable.GetInstance());
+            Fields[2][3].SetStateNew(FieldStateImpassable.GetInstance());
+            Fields[3][2].SetStateNew(FieldStateImpassable.GetInstance());
+            Fields[3][3].SetStateNew(FieldStateImpassable.GetInstance());
 
-            Fields[1][3].SetStateNew(NormalFieldState.GetInstance());
-            Fields[1][4].SetStateNew(NormalFieldState.GetInstance());
+            Fields[1][3].SetStateNew(FieldStateNormal.GetInstance());
+            Fields[1][4].SetStateNew(FieldStateNormal.GetInstance());
 
             this.Battlefield = new Battlefield(Fields);
 
@@ -40,7 +40,7 @@ namespace OOANS_projekt
             Hero.ActionPoints = 5;
 
             Hero.Skills.Add(
-                new CauseDamageSkill(
+                new SkillDamage(
                     "Passive self damage",
                     20,
                     SelectSelf.GetInstance(),
@@ -51,7 +51,7 @@ namespace OOANS_projekt
                 )
             );
             Hero.Skills.Add(
-                new HealSkill(
+                new SkillHeal(
                     "Passive self healing",
                     20,
                     SelectSelf.GetInstance(),
@@ -63,12 +63,12 @@ namespace OOANS_projekt
             );
 
 
-            ProxyHero Herop = new ProxyHero(Hero);
+            HeroProxy Herop = new HeroProxy(Hero);
             Battlefield.AddHero(Herop, 0, 0);
 
             Hero = new Hero(new List<Skill>(), 50, "Hero3");
             Hero.ActionPoints = 4;
-            Herop = new ProxyHero(Hero);
+            Herop = new HeroProxy(Hero);
             Battlefield.AddHero(Herop, 4, 4);
 
             this.CommandStackNormal = new Stack<BattlefieldMemento>();
@@ -84,7 +84,7 @@ namespace OOANS_projekt
             
 
             SkillPlaceTrap Skill = new SkillPlaceTrap(
-                new CauseDamageSkill("Pascokiller", 20, SelectSelf.GetInstance(), 1, 1, 50, false),
+                new SkillDamage("Pascokiller", 20, SelectSelf.GetInstance(), 1, 1, 50, false),
                 "Trapp-Placing skill",
                 SelectOneTarget.GetInstance(),
                 1,
@@ -92,7 +92,7 @@ namespace OOANS_projekt
                 20,
                 false
             );
-            this.ExecuteCommand(new UseSkillCommand(Skill, Battlefield.GetField(0, 0), SelectOneTarget.GetInstance()));
+            this.ExecuteCommand(new CommandUseSkill(Skill, Battlefield.GetField(0, 0), SelectOneTarget.GetInstance()));
 
             ReceiveCommands();
 
@@ -145,7 +145,7 @@ namespace OOANS_projekt
                         Coordinates.Add((i, j));
                         Console.WriteLine(Coordinates.Count + " coordinates");
 
-                        Command MoveCommand = new MoveCommand(Coordinates);
+                        Command MoveCommand = new CommandMove(Coordinates);
 
                         lock (Refreshlock)
                         {
@@ -163,7 +163,7 @@ namespace OOANS_projekt
                     case "skill":
                         break;
                     case "gather":
-                        Command GatherCommand = new GatherCommand(this.HeroQueue.First());
+                        Command GatherCommand = new CommandGather(this.HeroQueue.First());
                         this.ExecuteCommand(GatherCommand);
                         this.RenderBattleField();
                         break;

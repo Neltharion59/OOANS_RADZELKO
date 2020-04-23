@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class TrapObserver : Observer
+    class ObserverTrap : Observer
     {
         private BattleController BattleController { get; }
         private Skill Skill { get; }
         private int x { get; }
         private int y { get; }
-        public TrapObserver(BattleController BattleController, Skill Skill, int x, int y)
+        public ObserverTrap(BattleController BattleController, Skill Skill, int x, int y)
         {
             this.BattleController = BattleController;
             this.Skill = Skill;
@@ -25,7 +25,7 @@ namespace OOANS_projekt
             //TODO - create use skill command
             Subject.Unregister(this, false);
 
-            UseSkillCommand Command = new UseSkillCommand(Skill, BattleController.Battlefield.GetField(x, y), Skill.TriggerBehaviour);
+            CommandUseSkill Command = new CommandUseSkill(Skill, BattleController.Battlefield.GetField(x, y), Skill.TriggerBehaviour);
             BattleController.ExecuteCommand(Command);
         }
     }

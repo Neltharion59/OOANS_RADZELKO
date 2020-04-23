@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class HealSkill : Skill
+    class SkillHeal : Skill
     {
         public int HealAmount { get; set; }
 
 
-        public HealSkill(String Effect, int HealAmount, ITriggerBehaviour triggerBehaviour, int range, int maxTargets, int tTreshold, bool pass)
+        public SkillHeal(String Effect, int HealAmount, ITriggerBehaviour triggerBehaviour, int range, int maxTargets, int tTreshold, bool pass)
         {
             this.Name = Effect;
             this.HealAmount = HealAmount;

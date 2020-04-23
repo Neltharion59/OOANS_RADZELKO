@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class GatherCommand : Command
+    class CommandGather : Command
     {
         private static int HarvestActionCost = 1;
         private HeroInterface GatheringHero { get; }
-        public GatherCommand(HeroInterface GatheringHero)
+        public CommandGather(HeroInterface GatheringHero)
         {
             this.GatheringHero = GatheringHero;
         }
