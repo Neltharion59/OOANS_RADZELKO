@@ -21,7 +21,7 @@ namespace OOANS_projekt
             return NullField.Instance;
         }
 
-        public override bool MoveHero(HeroInterface Hero, Field Previous)
+        public override bool MoveHero(HeroInterface Hero, AbstractField Previous)
         {
             bool Result = false;
             if (Previous != null && Hero != null)
@@ -30,6 +30,19 @@ namespace OOANS_projekt
                 Result = true;
             }
             return Result;
+        }
+
+        public override void SetHero(HeroInterface Hero)
+        {
+        }
+
+        public override HeroInterface GetHero()
+        {
+            return null;
+        }
+
+        public override void SetNextInChain(AbstractField Next)
+        {
         }
     }
 }

@@ -17,9 +17,9 @@ namespace OOANS_projekt
         public override bool Execute(Battlefield Battlefield)
         {
             bool Success = true;
-            Field TempCurrent;
-            Field TempNext = null;
-            List<Field> PathFields = new List<Field>();
+            AbstractField TempCurrent;
+            AbstractField TempNext = null;
+            List<AbstractField> PathFields = new List<AbstractField>();
 
             // Build chain of responsibility
             for (int i = 0; i < PathCoordinates.Count - 1; i++)
@@ -31,13 +31,13 @@ namespace OOANS_projekt
                     Success = false;
                     break;
                 }
-                if (i == 0 && TempCurrent.Hero == null)
+                if (i == 0 && TempCurrent.GetHero() == null)
                 {
                     Success = false;
                     break;
                 }
 
-                TempCurrent.NextInChain = TempNext;
+                TempCurrent.SetNextInChain(TempNext);
                 PathFields.Add(TempCurrent);
             }
             if (TempNext != null)
@@ -53,7 +53,7 @@ namespace OOANS_projekt
 
             if (PathFields.Count > 1)
             {
-                HeroInterface Hero = PathFields.First().Hero;
+                HeroInterface Hero = PathFields.First().GetHero();
                 PathFields.First().SetHero();
                 Success = PathFields[1].MoveHero(Hero, PathFields.First());
             }
@@ -62,11 +62,11 @@ namespace OOANS_projekt
 
             return Success;
         }
-        private void CleanUpPath(List<Field> PathFields)
+        private void CleanUpPath(List<AbstractField> PathFields)
         {
-            foreach(Field Field in PathFields)
+            foreach(AbstractField Field in PathFields)
             {
-                Field.NextInChain = NullField.GetInstance();
+                Field.SetNextInChain(NullField.GetInstance());
             }
         }
     }

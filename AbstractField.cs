@@ -8,6 +8,9 @@ namespace OOANS_projekt
 {
     abstract class AbstractField
     {
-        public abstract bool MoveHero(HeroInterface Hero, Field Previous);
+        public abstract bool MoveHero(HeroInterface Hero, AbstractField Previous);
+        public abstract void SetHero(HeroInterface Hero = null);
+        public abstract HeroInterface GetHero();
+        public abstract void SetNextInChain(AbstractField Next);
     }
 }

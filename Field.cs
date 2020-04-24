@@ -12,8 +12,8 @@ namespace OOANS_projekt
         public int x { get; } = -1;
         public int y { get; } = -1;
 
-        public AbstractField NextInChain { get; set; }
-        public HeroInterface Hero { get; private set; }
+        public AbstractField NextInChain { get; private set; }
+        public HeroInterface Hero { get; set; }
         public FieldState State { get; private set; }
         public Resource Resource { get; set; }
 
@@ -40,7 +40,7 @@ namespace OOANS_projekt
             return this.State.GatherResource(this, Amount);
         }
 
-        public override bool MoveHero(HeroInterface Hero, Field Previous)
+        public override bool MoveHero(HeroInterface Hero, AbstractField Previous)
         {
             Console.WriteLine("Field::MoveHero - check for null hero");
             if (NextInChain == null || Hero == null)
@@ -93,14 +93,13 @@ namespace OOANS_projekt
             this.Resource = Memento.Resource == null ? null : Memento.Resource.ProduceOrigin();
         }
 
-        public void SetHero(HeroInterface Hero)
+        public override void SetHero(HeroInterface Hero = null)
         {
             this.Hero = Hero;
-            Hero.SetCoordinates(this.x, this.y);
-        }
-        public void SetHero()
-        {
-            this.Hero = null;
+            if (Hero != null)
+            {
+                Hero.SetCoordinates(this.x, this.y);
+            }
         }
 
         public String ToScreenText()
@@ -134,6 +133,16 @@ namespace OOANS_projekt
             {
                 this.Observers[i].Update(this);
             }
+        }
+
+        public override HeroInterface GetHero()
+        {
+            return this.Hero;
+        }
+
+        public override void SetNextInChain(AbstractField Next)
+        {
+            this.NextInChain = Next;
         }
     }
 }
