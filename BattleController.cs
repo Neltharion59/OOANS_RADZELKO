@@ -180,16 +180,16 @@ namespace OOANS_projekt
                         ITriggerBehaviour TargetingStrategy = null;
                         switch (Tokens[2])
                         {
-                            case "One":
+                            case "one":
                                 TargetingStrategy = SelectOneTarget.GetInstance();
                                 break;
-                            case "Auto":
+                            case "auto":
                                 TargetingStrategy = SelectAutoTarget.GetInstance();
                                 break;
-                            case "Area":
+                            case "area":
                                 TargetingStrategy = SelectArea.GetInstance();
                                 break;
-                            case "Self":
+                            case "self":
                                 TargetingStrategy = SelectSelf.GetInstance();
                                 break;
                             default:
