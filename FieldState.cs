@@ -11,22 +11,18 @@ namespace OOANS_projekt
         public bool EnterField(Field Field, HeroInterface Hero)
         {
 
-            Console.WriteLine("FieldState::EnterField - permit entry");
             if (!PermitEntry())
             {
                 return false;
             }
-            Console.WriteLine("FieldState::EnterField - blocking hero check");
             if (Field.Hero != null)
             {
                 return false;
             }
-            Console.WriteLine("FieldState::EnterField - move cost");
-            if (!Hero.PayActionCost(GetEntryCost()))
+           if (!Hero.PayActionCost(GetEntryCost()))
             {
                 return false;
             }
-            Console.WriteLine("FieldState::EnterField - hero successfully entered field");
             Field.SetHero(Hero);
 
             return true;

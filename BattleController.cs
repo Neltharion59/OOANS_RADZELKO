@@ -17,26 +17,15 @@ namespace OOANS_projekt
         private Stack<BattlefieldMemento> CommandStackNormal { get; }
         private Stack<BattlefieldMemento> CommandStackReverse { get; }
 
-        private LinkedList<HeroInterface> HeroQueue { get; }
-        public BattleController(List<List<Field>> Fields)
+        private LinkedList<HeroInterface> HeroQueue { get; set; }
+        public BattleController(Battlefield Battlefield)
         {  
             this.Over = false;
             ObserverFactory.GetInstance().Init(this);
 
-            Fields[0][1].SetStateNew(FieldStateForest.GetInstance());
-            Fields[0][3].SetStateNew(FieldStateImpassable.GetInstance());
+            this.Battlefield = Battlefield;
 
-            Fields[2][2].SetStateNew(FieldStateImpassable.GetInstance());
-            Fields[2][3].SetStateNew(FieldStateImpassable.GetInstance());
-            Fields[3][2].SetStateNew(FieldStateImpassable.GetInstance());
-            Fields[3][3].SetStateNew(FieldStateImpassable.GetInstance());
-
-            Fields[1][3].SetStateNew(FieldStateNormal.GetInstance());
-            Fields[1][4].SetStateNew(FieldStateNormal.GetInstance());
-
-            this.Battlefield = new Battlefield(Fields);
-
-            Hero Hero = new Hero(new List<Skill>(), 100, "Hero1");
+           /* Hero Hero = new Hero(new List<Skill>(), 100, "Hero1");
             Hero.ActionPoints = 5;
 
             Hero.Skills.Add(
@@ -69,21 +58,21 @@ namespace OOANS_projekt
             Hero = new Hero(new List<Skill>(), 50, "Hero3");
             Hero.ActionPoints = 4;
             Herop = new HeroProxy(Hero);
-            Battlefield.AddHero(Herop, 4, 4);
+            Battlefield.AddHero(Herop, 4, 4);*/
 
             this.CommandStackNormal = new Stack<BattlefieldMemento>();
             this.CommandStackReverse = new Stack<BattlefieldMemento>();
-            this.CommandStackNormal.Push(this.Battlefield.CreateMemento());
+            
 
-            this.HeroQueue = this.Battlefield.GetAllHeroes();
+            
 
             this.RefreshBattleField = false;
-            this.RenderBattleField();
+            //this.RenderBattleField();
             this.KeepRenderingBattleField();
 
             
 
-            SkillPlaceTrap Skill = new SkillPlaceTrap(
+            /*SkillPlaceTrap Skill = new SkillPlaceTrap(
                 new SkillDamage("Pascokiller", 20, SelectSelf.GetInstance(), 1, 1, 50, false),
                 "Trapp-Placing skill",
                 SelectOneTarget.GetInstance(),
@@ -92,17 +81,18 @@ namespace OOANS_projekt
                 20,
                 false
             );
-            this.ExecuteCommand(new CommandUseSkill(Skill, Battlefield.GetField(0, 0), SelectOneTarget.GetInstance()));
-
-            ReceiveCommands();
-
-            ObserverFactory.GetInstance().Finish();
+            this.ExecuteCommand(new CommandUseSkill(Skill, Battlefield.GetField(0, 0), SelectOneTarget.GetInstance()));*/
         }
 
         public void ReceiveCommands()
         {
+            this.HeroQueue = this.Battlefield.GetAllHeroes();
+            this.CommandStackNormal.Push(this.Battlefield.CreateMemento());
+            this.RenderBattleField();
+
             String CommandInput;
             String[] Tokens;
+            
             while (true)
             {
                 CommandInput = Console.ReadLine();
@@ -112,7 +102,7 @@ namespace OOANS_projekt
                     case "move":
                         if (Tokens.Length != 2)
                         {
-                            Console.WriteLine("Invalid format");
+                            Console.WriteLine("Invalid syntax");
                             continue;
                         }
                         List<(int, int)> Coordinates = new List<(int, int)>();
@@ -121,7 +111,7 @@ namespace OOANS_projekt
 
                         if (Tokens[1].Split(',').Count() != 2)
                         {
-                            Console.WriteLine("Invalid format");
+                            Console.WriteLine("Invalid syntax");
                             continue;
                         }
                         int end_x = int.Parse(Tokens[1].Split(',')[0]);
@@ -161,6 +151,59 @@ namespace OOANS_projekt
                         this.RenderBattleField();
                         break;
                     case "skill":
+                        if (Tokens.Length != 3)
+                        {
+                            Console.WriteLine("Invalid syntax - need 3 params");
+                            continue;
+                        }
+
+                        int SkillID = -1;
+                        if (!int.TryParse(Tokens[1], out SkillID))
+                        {
+                            Console.WriteLine("Invalid syntax - param 1 must be integer");
+                            continue;
+                        }
+
+                        Skill Skill = HeroQueue.First().GetSkill(SkillID);
+                        if(Skill == null)
+                        {
+                            Console.WriteLine("Skill with id " + SkillID + " does not exist");
+                            continue;
+                        }
+
+                        if (Skill.Passive)
+                        {
+                            Console.WriteLine("Cannot actively use passive skill");
+                            continue;
+                        }
+
+                        ITriggerBehaviour TargetingStrategy = null;
+                        switch (Tokens[2])
+                        {
+                            case "One":
+                                TargetingStrategy = SelectOneTarget.GetInstance();
+                                break;
+                            case "Auto":
+                                TargetingStrategy = SelectAutoTarget.GetInstance();
+                                break;
+                            case "Area":
+                                TargetingStrategy = SelectArea.GetInstance();
+                                break;
+                            case "Self":
+                                TargetingStrategy = SelectSelf.GetInstance();
+                                break;
+                            default:
+                                break;
+                        }
+                        if (TargetingStrategy == null)
+                        {
+                            Console.WriteLine("Invalid target strategy option");
+                            continue;
+                        }
+
+                        Command UseSkillCommand = new CommandUseSkill(Skill, Battlefield.GetField(HeroQueue.First().GetCoordinates()[0], HeroQueue.First().GetCoordinates()[1]), TargetingStrategy);
+                        this.ExecuteCommand(UseSkillCommand);
+                        this.RenderBattleField();
                         break;
                     case "gather":
                         Command GatherCommand = new CommandGather(this.HeroQueue.First());
@@ -203,6 +246,7 @@ namespace OOANS_projekt
                         this.Over = true;
                         break;
                     default:
+                        Console.WriteLine("Unknown command");
                         break;
                 }
 
@@ -215,6 +259,8 @@ namespace OOANS_projekt
                     break;
                 }
             }
+
+            ObserverFactory.GetInstance().Finish();
         }
         public void ExecuteCommand(Command Command)
         {      
@@ -267,7 +313,10 @@ namespace OOANS_projekt
                 table.AddRow(O);
             }
             table.Write();
-            Console.WriteLine("Remaining steps: " + this.HeroQueue.First().GetRemainingSteps());
+            if (HeroQueue.Count > 0)
+            {
+                Console.WriteLine("Remaining steps: " + this.HeroQueue.First().GetRemainingSteps());
+            }
         }
     }
 }

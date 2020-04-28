@@ -42,17 +42,14 @@ namespace OOANS_projekt
 
         public override bool MoveHero(HeroInterface Hero, AbstractField Previous)
         {
-            Console.WriteLine("Field::MoveHero - check for null hero");
             if (NextInChain == null || Hero == null)
             {
                 return false;
             }
-            Console.WriteLine("Field::MoveHero - state check");
             if (!this.State.EnterField(this, Hero))
             {
                 if (Previous != null)
                 {
-                    Console.WriteLine("Set hero to previous");
                     Previous.SetHero(Hero);
                 }
                 return false;
@@ -71,7 +68,6 @@ namespace OOANS_projekt
             }
             else
             {
-                Console.WriteLine("Field::MoveHero - next");
                 return this.NextInChain.MoveHero(Hero, this);
             }
         }

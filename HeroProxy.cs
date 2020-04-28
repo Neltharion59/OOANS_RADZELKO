@@ -100,13 +100,32 @@ namespace OOANS_projekt
 
         public HeroMemento CreateMemento()
         {
-            //throw new NotImplementedException();
-            return null;
+            HeroMemento Memento =  this.RealHero.CreateMemento();
+
+            Memento.x = this.x;
+            Memento.y = this.y;
+            Memento.RemainingMovementPoints = this.RemainingActionPoints;
+
+            Memento.damageIncrease = this.damageIncrease;
+            Memento.damageReduce = this.damageReduce;
+            Memento.damageResistance = this.damageResistance;
+            Memento.damageVulnerability = this.damageVulnerability;
+
+            return Memento;
         }
 
         public void Restore(HeroMemento Memento)
         {
-            throw new NotImplementedException();
+            this.RealHero.Restore(Memento);
+
+            this.x = Memento.x;
+            this.y = Memento.y;
+            this.RemainingActionPoints = Memento.RemainingMovementPoints;
+
+            this.damageIncrease = Memento.damageIncrease;
+            this.damageReduce = Memento.damageReduce;
+            this.damageResistance = Memento.damageResistance;
+            this.damageVulnerability = Memento.damageVulnerability;
         }
 
         public void RestoreTurn()

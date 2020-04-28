@@ -13,5 +13,10 @@ namespace OOANS_projekt
         public int x { get; set; }
         public int y { get; set; }
         public int HarvestPower { get; set; }
+
+        public int damageResistance { get; set; }                                       //napr. dalsim observerom na konci kola....
+        public int damageVulnerability { get; set; }
+        public int damageIncrease { get; set; }
+        public int damageReduce { get; set; }
     }
 }

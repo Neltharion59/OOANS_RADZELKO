@@ -81,7 +81,12 @@ namespace OOANS_projekt
         //Miso
         public Skill GetSkill(int id) //TODO vymyslet to inak?  nie podla id
         {
-            return this.Skills[id];
+            Skill Result = null;
+            if (id >= 0 && id < this.Skills.Count)
+            {
+                Result = this.Skills[id];
+            }
+            return Result;
         }
 
         public HealthStat GetHealthStat()

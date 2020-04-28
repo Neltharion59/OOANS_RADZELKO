@@ -21,97 +21,86 @@ namespace OOANS_projekt
                 }
             }
 
-            
+            Fields[0][1].SetStateNew(FieldStateForest.GetInstance());
+            Fields[0][3].SetStateNew(FieldStateImpassable.GetInstance());
 
-            BattleController bc = new BattleController(Fields.Select(x => x.ToList()).ToList());
-            Battlefield Battlefield = bc.Battlefield;
+            Fields[2][2].SetStateNew(FieldStateImpassable.GetInstance());
+            Fields[2][3].SetStateNew(FieldStateImpassable.GetInstance());
+            Fields[3][2].SetStateNew(FieldStateImpassable.GetInstance());
+            Fields[3][3].SetStateNew(FieldStateImpassable.GetInstance());
 
-            /*table
-                 .AddRow("this line should be longer", "yes it is", "oh");
-            table.AddRow(Temp);
-            table.Write();*/
+            Fields[1][3].SetStateNew(FieldStateNormal.GetInstance());
+            Fields[1][4].SetStateNew(FieldStateNormal.GetInstance());
 
-            List<object[]> a = Battlefield.ToRenderableFormat();
+            Battlefield bf = new Battlefield(Fields.Select(x => x.ToList()).ToList());
+            BattleController bc = new BattleController(bf);
 
-            String[] Placeholder = new string[a[0].Length];
-            for (int i = 0; i < Placeholder.Length; i++)
-            {
-                Placeholder[i] = i.ToString();
-            }
-           var table = new ConsoleTable(Placeholder);
-            foreach (object[] O in a)
-            {
-                table.AddRow(O);
-            }
-            table.Write();
+            PrepareHeroes(bf);
 
-
-            //otazky
-            //ako dostat source field passive skillu do vyvolania?
-        
-            //vytvor skilly pre hrdinu
-            List<Skill> skillList = new List<Skill>();
-
-            //skillList.Add(new HealSkill("Basic heal", 10, 0)); 
-            //PassiveSkillTriggering pst = new PassiveSkillTriggering(90, skillList.Last(), Battlefield);
-            //skillList.Last().TriggerBehaviour = pst;        //todo setter pre pasivny behaviour
-            skillList.Add(new SkillHeal("Basic heal", 10, SelectSelf.GetInstance(), 1, 1, 90, true));
-
-            //todo vymazat, posielat hera cez notify observera
-            //((PassiveSkillTriggering)skillList.Last().TriggerBehaviour).source = Battlefield.GetField(1,1);
-
-            skillList.Add(new SkillDamage("Basic attack", 10, SelectArea.GetInstance(), 1, 1, 0, false));
-
-            skillList.Add(new SkillHeal("AoE heal", 10, SelectArea.GetInstance(), 2, 1, 90, false));
-
-            skillList.Add(new SkillHeal("Chain heal", 10, null, 2, 4, 0, false));
-
-            skillList.Add(new SkillDamageDebuff(new SkillDamage("Fist punch", 1, SelectOneTarget.GetInstance(),
-                1, 1, 0, false), new DamageVulnerabilityDebuff("50% damageVulnerability", 2, 50), "Fist debuff"));
-
-            skillList.Add(new SkillHealBuff(new SkillHeal("Healing touch", 1, SelectOneTarget.GetInstance(), 1, 1, 0, false),
-                new DamageIncreaseBuff("Increase damage 50% buff", 2, 50), "Healing damage buff"));
-
-
-            //vytvor hrdinu
-            HeroInterface Hrdina = new HeroProxy(new Hero(Skills: skillList, HealthPoints: 100, name: "Hero2"));
-            //pridaj hrdinu na mapu
-            Battlefield.GetField(1, 1).SetHero(Hrdina);
-
-            //vytvor observera
-
-
-            //vytvor command, odkomentovat ak je prvy skill aktviny
-            //Command useSkillCommand1 = new UseSkillCommand(Battlefield.GetField(1,1).Hero.GetSkill(0), Battlefield.GetField(1,1));
-            //useSkillCommand1.Execute(Battlefield);
-
-            Command useSkillCommand2 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
-            useSkillCommand2.Execute(Battlefield);
-            Command useSkillCommand3 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectArea.GetInstance());
-            useSkillCommand3.Execute(Battlefield);
-            Command useSkillCommand4 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(2), Battlefield.GetField(1, 1), SelectArea.GetInstance());
-            useSkillCommand4.Execute(Battlefield);
-            Command useSkillCommand5 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(3), Battlefield.GetField(1, 1), SelectAutoTarget.GetInstance());
-            useSkillCommand5.Execute(Battlefield);
-
-            Command useSkillCommand6 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(4), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
-            useSkillCommand6.Execute(Battlefield);
-
-            Command useSkillCommand7 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
-            useSkillCommand7.Execute(Battlefield);
-
-            Command useSkillCommand8 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(5), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
-            useSkillCommand8.Execute(Battlefield);
-
-            Command useSkillCommand9 = new CommandUseSkill(Battlefield.GetField(1, 1).Hero.GetSkill(1), Battlefield.GetField(1, 1), SelectOneTarget.GetInstance());
-            useSkillCommand9.Execute(Battlefield);
-
-            //Console.WriteLine("Aktual hero hp: " + Battlefield.GetField(1, 1).Hero.GetHealthStat().ActualHP);
-
-
-
-
+            bc.ReceiveCommands();
             Console.ReadLine();
+        }
+
+        private static void PrepareHeroes(Battlefield Battlefield)
+        {
+            Hero Hero = new Hero(new List<Skill>(), 100, "Hero1");
+            Hero.ActionPoints = 5;
+
+            Hero.Skills.Add(
+                new SkillDamage(
+                    "Active damage",
+                    40,
+                    SelectOneTarget.GetInstance(),
+                    3,
+                    5,
+                    90,
+                    false
+                )
+            );
+            Hero.Skills.Add(
+                new SkillHeal(
+                    "Passive self healing",
+                    20,
+                    SelectSelf.GetInstance(),
+                    1,
+                    1,
+                    80,
+                    true
+                )
+            );
+
+
+            HeroProxy Herop = new HeroProxy(Hero);
+            Battlefield.AddHero(Herop, 0, 0);
+
+            Hero = new Hero(new List<Skill>(), 50, "Hero3");
+            Hero.ActionPoints = 4;
+
+            Hero.Skills.Add(
+                new SkillDamage(
+                    "Active damage",
+                    40,
+                    SelectOneTarget.GetInstance(),
+                    3,
+                    5,
+                    90,
+                    false
+                )
+            );
+            Hero.Skills.Add(
+                new SkillPlaceTrap(
+                    new SkillDamage("Trap Damage", 20, SelectSelf.GetInstance(), 1, 1, 50, false),
+                    "Trapp-Placing skill",
+                    SelectOneTarget.GetInstance(),
+                    1,
+                    1,
+                    20,
+                    false
+                )
+            );
+
+            Herop = new HeroProxy(Hero);
+            Battlefield.AddHero(Herop, 4, 4);
         }
     }
 }

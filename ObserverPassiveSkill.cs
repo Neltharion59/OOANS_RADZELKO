@@ -34,6 +34,9 @@ namespace OOANS_projekt
 
             WasActivated = true;*/
             Console.WriteLine("Passive Skill Triggered");
+            Console.WriteLine(BattleController);
+            Console.WriteLine(BattleController.Battlefield);
+            Console.WriteLine(BattleController.Battlefield.GetField(SkillOwner));
 
             CommandUseSkill Command = new CommandUseSkill(Skill, BattleController.Battlefield.GetField(SkillOwner), Skill.TriggerBehaviour);
             BattleController.ExecuteCommand(Command);
