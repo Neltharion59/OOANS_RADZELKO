@@ -45,13 +45,13 @@ namespace OOANS_projekt
                 PathFields.Add(TempNext);
             } 
 
-            if (!Success)
+            /*if (!Success)
             {
                 CleanUpPath(PathFields);
                 return false;
-            }
+            }*/
 
-            if (PathFields.Count > 1)
+            if (Success && PathFields.Count > 1)
             {
                 HeroInterface Hero = PathFields.First().GetHero();
                 PathFields.First().SetHero();
