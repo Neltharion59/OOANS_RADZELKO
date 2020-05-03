@@ -32,7 +32,7 @@ namespace OOANS_projekt
         {
             List<Field> targets = new List<Field>();
 
-            Console.WriteLine("You are standing in " + source.x + "," + source.y);
+            Console.WriteLine("You are standing in " + source.x + "," + source.y + " Skill range: " + SkillRange);
 
             while (true)
             {

@@ -13,6 +13,8 @@ namespace OOANS_projekt
         {
             this.buff = buff;
             this.Name = name;
+            this.Range = DecoratedSkill.Range;
+            this.MaxTargets = DecoratedSkill.MaxTargets;
         }
 
         public override void Use(List<Field> targets, double coeficient)

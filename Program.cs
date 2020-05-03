@@ -53,9 +53,24 @@ namespace OOANS_projekt
                     SelectOneTarget.GetInstance(),
                     3,
                     5,
-                    90,
+                    0,
                     false
                 )
+            );
+            Hero.Skills.Add(
+                new SkillDamageDebuff(
+                    new SkillDamage(
+                        "Active damage",
+                        20,
+                        SelectOneTarget.GetInstance(),
+                        3,
+                        5,
+                        0,
+                        false
+                        ),
+                    new DamageVulnerabilityDebuff("50% damage vulnerability debuff", 3, 50),
+                    "Active damage debuff"
+                    )
             );
             Hero.Skills.Add(
                 new SkillHeal(
@@ -68,12 +83,26 @@ namespace OOANS_projekt
                     true
                 )
             );
-
+            Hero.Skills.Add(
+                new SkillHealBuff(
+                    new SkillHeal(
+                        "Active healing",
+                        20,
+                        SelectOneTarget.GetInstance(),
+                        3, //range
+                        5, //max targets
+                        0,
+                        false
+                        ),
+                    new DamageIncreaseBuff("50% damage increased buff", 3, 50),
+                    "Active healing buff"
+                    )
+            );
 
             HeroProxy Herop = new HeroProxy(Hero);
             Battlefield.AddHero(Herop, 0, 0);
 
-            Hero = new Hero(new List<Skill>(), 50, "Hero3");
+            Hero = new Hero(new List<Skill>(), 100, "Hero2");
             Hero.ActionPoints = 4;
 
             Hero.Skills.Add(
@@ -83,9 +112,50 @@ namespace OOANS_projekt
                     SelectOneTarget.GetInstance(),
                     3,
                     5,
-                    90,
+                    0,
                     false
                 )
+            );
+            Hero.Skills.Add(
+                new SkillDamageDebuff(
+                    new SkillDamage(
+                        "Active damage",
+                        20,
+                        SelectOneTarget.GetInstance(),
+                        3,
+                        5,
+                        0,
+                        false
+                        ),
+                    new DamageVulnerabilityDebuff("50% damage vulnerability debuff", 3, 50),
+                    "Active damage debuff"
+                    )
+            );
+            Hero.Skills.Add(
+                new SkillHeal(
+                    "Passive self healing",
+                    20,
+                    SelectSelf.GetInstance(),
+                    1,
+                    1,
+                    80,
+                    true
+                )
+            );
+            Hero.Skills.Add(
+                new SkillHealBuff(
+                    new SkillHeal(
+                        "Active healing",
+                        20,
+                        SelectOneTarget.GetInstance(),
+                        3, //range
+                        5, //max targets
+                        0,
+                        false
+                        ),
+                    new DamageIncreaseBuff("50% damage increased buff", 3, 50),
+                    "Active healing buff"
+                    )
             );
             Hero.Skills.Add(
                 new SkillPlaceTrap(
