@@ -23,4 +23,13 @@ namespace OOANS_projekt
                 return new NameIterator(this.Items));
             }   
         }
+        
+        public void AddItem(AbstractItem item)
+        {
+            this.Items.Add(item);
+        }
+        public void RemoveItem(int selection)
+        {
+            this.Items.RemoveAt(selection);
+        }
 }}
