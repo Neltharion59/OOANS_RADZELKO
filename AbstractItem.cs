@@ -9,5 +9,6 @@ namespace OOANS_projekt
     abstract class AbstractItem
     {
         public abstract bool Sell(Inventory Inventory);
+        void Accept(ItemVisitor Visitor);
     }
 }

@@ -15,6 +15,10 @@ namespace OOANS_projekt
             Inventory.setMoney(Inventory.getMoney() + this.Price);
         }
         
+        void Accept(ItemVisitor Visitor)
+        {
+            Visitor.Visit(this);
+        }
         
     }
 }

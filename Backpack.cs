@@ -13,13 +13,17 @@ namespace OOANS_projekt
         public Inventory Insides;
         public abstract bool Sell(Inventory Inventory)
         {
-            for (Item item in Inventory.getItems())
+            for (AbstractItem item in Inventory.getItems())
             {
                 item.Sell(Inventory);
             }
             Inventory.setMoney(Inventory.getMoney() + Insides.getMoney() + this.Price);   
         }
-        
-        
+           
+        void Accept(ItemVisitor Visitor)
+        {
+            Visitor.Visit(this);
+        }
+
     }
 }
