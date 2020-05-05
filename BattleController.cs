@@ -7,7 +7,7 @@ using ConsoleTables;
 
 namespace OOANS_projekt
 {
-    class BattleController
+    class BattleController : Controller
     {
         public Battlefield Battlefield { get; }
         public bool RefreshBattleField { get; set; }
@@ -18,6 +18,11 @@ namespace OOANS_projekt
         private Stack<BattlefieldMemento> CommandStackReverse { get; }
 
         private LinkedList<HeroInterface> HeroQueue { get; set; }
+        
+        void Commence(ControllerType type)
+        {
+            this.RenderBattleField();
+        }
         public BattleController(Battlefield Battlefield)
         {  
             this.Over = false;
