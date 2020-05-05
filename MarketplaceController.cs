@@ -74,5 +74,13 @@ namespace OOANS_projekt
             } 
             */
         }
+        void doAction()
+        {
+            Iterator Iterator = Consumables.createIterator();
+            ItemVisitor Visitor = new ItemVisitor();
+            while (Iterator.HasNext())
+            {
+            }
+        }
 
 }}
