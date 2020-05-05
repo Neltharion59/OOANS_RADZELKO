@@ -10,7 +10,7 @@ public interface Controller
 {
     enum ControllerType
     {
-        Battlefield,
+        Battle,
         Marketplace,
         Menu
     }

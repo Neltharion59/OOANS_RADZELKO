@@ -26,6 +26,9 @@ namespace OOANS_projekt
             Console.WriteLine("2: Buy weapons");
             Console.WriteLine("3: Buy consumables");
             Console.WriteLine("4: Sell wares");
+            Console.WriteLine("5: Exit");
+            
+            /*LoadMarketplace(3);*/
         }
         
         public void LoadMarketplace(int place)
@@ -46,9 +49,13 @@ namespace OOANS_projekt
                     from = this.Consumables;
                     to = this.BackPack;
                     break;
-                default:
+                case 4:
                     from = this.BackPack;
-                    to = this.BuyingVendor;                
+                    to = this.BuyingVendor;           
+                    break;
+                default:
+                    Mediator.SwitchMode(Controller.ControllerType.Menu);
+     
             }
             foreach (Item item in from.GetItems())
             {
