@@ -8,12 +8,12 @@ namespace OOANS_projekt
 {
     class PriceIterator : Iterator
     {
-        private Items[];
+        private List<AbstractItem> Items;
         private int pos = -1;
-        public PriceIterator(Items[] Items)
+        public PriceIterator(List<AbstractItem> Items)
         {
             this.Items = Items;
-            this.Items.Sort(delegate(Item x, Item y)
+            this.Items.Sort(delegate (Item x, Item y)
             {
                 if(x.price > y.price)
                 {
@@ -26,20 +26,20 @@ namespace OOANS_projekt
             }            
         }
         
-        public bool HasNext()
+        public override bool HasNext()
         {
-            if (pos < Items.size())
+            if (pos < Items.Count())
             {
                 return true;
             }
             return false;
         }
-        public Item Next()
+        public override AbstractItem Next()
         {
             if(this.HasNext())
             {
                 pos++;
-                return Items[pos];
+                return Items.ElementAt(pos);
             }
             return null;
         }

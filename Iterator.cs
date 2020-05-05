@@ -9,7 +9,7 @@ namespace OOANS_projekt
     abstract class Iterator
     {
         public abstract bool HasNext();
-        public abstract bool Next();
+        public abstract AbstractItem Next();
         
     }
 }

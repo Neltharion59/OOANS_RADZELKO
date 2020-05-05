@@ -10,9 +10,10 @@ namespace OOANS_projekt
     {
         public string Name;
         public int Price;
-        public abstract bool Sell(Inventory Inventory)
+        public override bool Sell(Inventory Inventory)
         {
             Inventory.setMoney(Inventory.getMoney() + this.Price);
+            return true;
         }
         
         void Accept(ItemVisitor Visitor)

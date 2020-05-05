@@ -7,7 +7,7 @@ using ConsoleTables;
 
 namespace OOANS_projekt
 {
-    class MarketplaceController : Controller
+    class Menu : Controller
     {
         private Inventory Armory;
         private Inventory Weaponry;
@@ -15,7 +15,7 @@ namespace OOANS_projekt
         private Inventory BuyingVendor;
         private Inventory BackPack;
     
-        public void Commence(ControllerType type)
+        public override void Commence(ControllerType type)
         {
             this.LoadOptions();
         }
