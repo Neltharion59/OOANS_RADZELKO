@@ -7,17 +7,26 @@ using ConsoleTables;
 
 namespace OOANS_projekt
 {
-    class BattleController
+    class BattleController : Controller
     {
         public Battlefield Battlefield { get; }
         public bool RefreshBattleField { get; set; }
         private readonly object Refreshlock = new object();
         private bool Over { get; set; }
+        private Mediator Mediator;
 
         private Stack<BattlefieldMemento> CommandStackNormal { get; }
         private Stack<BattlefieldMemento> CommandStackReverse { get; }
 
         private LinkedList<HeroInterface> HeroQueue { get; set; }
+
+        public void Commence(Controller.ControllerType type, Mediator Mediator)
+        {
+            this.Mediator = Mediator;
+            this.ReceiveCommands();
+            Console.ReadLine();
+
+        }
         public BattleController(Battlefield Battlefield)
         {  
             this.Over = false;

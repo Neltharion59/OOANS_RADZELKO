@@ -49,6 +49,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractField.cs" />
+    <Compile Include="AbstractItem.cs" />
+    <Compile Include="AllItemsIterator.cs" />
+    <Compile Include="Backpack.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="ControllerMediator.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemCountVisitor.cs" />
+    <Compile Include="ItemVisitor.cs" />
+    <Compile Include="Iterable.cs" />
+    <Compile Include="Iterator.cs" />
+    <Compile Include="MarketplaceController.cs" />
+    <Compile Include="Mediator.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="NameIterator.cs" />
+    <Compile Include="PriceCalculateVisitor.cs" />
+    <Compile Include="PriceIterator.cs" />
+    <Compile Include="SimpleIterator.cs" />
     <Compile Include="SkillPlaceTrap.cs" />
     <Compile Include="DamageIncreaseBuff.cs" />
     <Compile Include="DamageReduceDebuff.cs" />
