@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-public ItemCountVisitor : ItemVisitor
+
+public class ItemCountVisitor : ItemVisitor
 {
     int count = 0;
-    void Visit(Item Item)
+    public void Visit(AbstractItem Item)
     {
         count++;
     }
-    void Visit(Backpack Backpack)
+    public void Visit(Backpack Backpack)
     {
-        for (AbstractItem item in Backpack.Insides.getItems())
+        foreach (AbstractItem item in Backpack.Insides.Items)
         {
             this.Visit(item);
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    abstract class Iterator
+    public abstract class Iterator
     {
         public abstract bool HasNext();
         public abstract AbstractItem Next();

@@ -7,20 +7,20 @@ using ConsoleTables;
 
 namespace OOANS_projekt
 {
-    class Inventory : Iterable
+    public class Inventory : Iterable
     {
-        private List<AbstractItem> Items { get; set; }
-        private int Money { get; set; }
+        public List<AbstractItem> Items { get; set; }
+        public int Money { get; set; }
         
         public Iterator CreateIterator(int type)
         {
             if(type == 0)
             {
-                return new PriceIterator(this.Items);
+                return new AllItemsIterator(this.Items);
             }
             else
             {
-                return new NameIterator(this.Items));
+                return new SimpleIterator(this.Items);
             }   
         }
         

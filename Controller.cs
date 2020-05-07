@@ -14,6 +14,6 @@ public interface Controller
         Marketplace,
         Menu
     }
-    void Commence(ControllerType type);
+    public void Commence(ControllerType type, Mediator Mediator);
 }
 }

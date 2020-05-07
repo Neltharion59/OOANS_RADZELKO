@@ -9,14 +9,11 @@ namespace OOANS_projekt
 {
     class Menu : Controller
     {
-        private Inventory Armory;
-        private Inventory Weaponry;
-        private Inventory Consumables;
-        private Inventory BuyingVendor;
-        private Inventory BackPack;
-    
-        public override void Commence(ControllerType type)
+        private Mediator Mediator;
+
+        public void Commence(Controller.ControllerType type, Mediator Mediator)
         {
+            this.Mediator = Mediator;
             this.LoadOptions();
         }
         
@@ -30,9 +27,7 @@ namespace OOANS_projekt
         
         public void LoadMarketplace(int place)
         {
-            Inventory from;
-            Inventory to;
-            switch place
+            switch (place)
             {
                 case 1: 
                     Mediator.SwitchMode(Controller.ControllerType.Battle);
@@ -44,7 +39,7 @@ namespace OOANS_projekt
                     Mediator.SwitchMode(Controller.ControllerType.Menu);
                     break;
                 default:
-                    System.Halt();     
+                    return;
             }
         }
 

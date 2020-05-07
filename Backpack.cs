@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class Backpack : AbstractItem
+    public class Backpack : AbstractItem
     {
-        public string Name;
-        public int Price;
         public Inventory Insides;
         public override bool Sell(Inventory Inventory)
         {
-            foreach (AbstractItem item in Inventory.getItems())
+            foreach (AbstractItem item in Inventory.Items)
             {
                 item.Sell(Inventory);
             }
-            Inventory.setMoney(Inventory.getMoney() + Insides.getMoney() + this.Price);
+            Inventory.Money += Insides.Money + this.Price;
             return true;
         }
            
-        void Accept(ItemVisitor Visitor)
+        public override void Accept(ItemVisitor Visitor)
         {
             Visitor.Visit(this);
         }

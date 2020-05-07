@@ -8,15 +8,13 @@ namespace OOANS_projekt
 {
     class Item : AbstractItem
     {
-        public string Name;
-        public int Price;
         public override bool Sell(Inventory Inventory)
         {
-            Inventory.setMoney(Inventory.getMoney() + this.Price);
+            Inventory.Money += this.Price;
             return true;
         }
         
-        void Accept(ItemVisitor Visitor)
+        public override void Accept(ItemVisitor Visitor)
         {
             Visitor.Visit(this);
         }

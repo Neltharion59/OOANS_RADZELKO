@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-public PriceCalculateVisitor : ItemVisitor
+public class PriceCalculateVisitor : ItemVisitor
 {
     int value = 0;
-    void Visit(Item Item)
+    public void Visit(AbstractItem Item)
     {
-        value += Item.price;
+        value += Item.Price;
     }
-    void Visit(Backpack Backpack)
+    public void Visit(Backpack Backpack)
     {
-        for (AbstractItem item in Backpack.Insides.getItems())
+        foreach (AbstractItem item in Backpack.Insides.Items)
         {
             this.Visit(item);
         }
-        value += Backpack.price;
+        value += Backpack.Price;
     }
 }}

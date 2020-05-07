@@ -13,14 +13,16 @@ namespace OOANS_projekt
         public bool RefreshBattleField { get; set; }
         private readonly object Refreshlock = new object();
         private bool Over { get; set; }
+        private Mediator Mediator;
 
         private Stack<BattlefieldMemento> CommandStackNormal { get; }
         private Stack<BattlefieldMemento> CommandStackReverse { get; }
 
         private LinkedList<HeroInterface> HeroQueue { get; set; }
-        
-        void Commence(ControllerType type)
+
+        public void Commence(Controller.ControllerType type, Mediator Mediator)
         {
+            this.Mediator = Mediator;
             this.RenderBattleField();
         }
         public BattleController(Battlefield Battlefield)

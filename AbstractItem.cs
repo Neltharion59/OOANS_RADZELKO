@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    abstract class AbstractItem
+    public abstract class AbstractItem
     {
         public abstract bool Sell(Inventory Inventory);
         public abstract void Accept(ItemVisitor Visitor);

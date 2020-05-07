@@ -7,16 +7,18 @@ using ConsoleTables;
 
 namespace OOANS_projekt
 {
-    class MarketplaceController : Controller
+    public class MarketplaceController : Controller
     {
         private Inventory Armory;
         private Inventory Weaponry;
         private Inventory Consumables;
         private Inventory BuyingVendor;
         private Inventory BackPack;
+        private Mediator Mediator;
     
-        public void Commence(ControllerType type)
+        public void Commence(Controller.ControllerType type, Mediator Mediator)
         {
+            this.Mediator = Mediator;
             this.LoadOptions();
         }
         
@@ -26,7 +28,7 @@ namespace OOANS_projekt
             Console.WriteLine("2: Buy weapons");
             Console.WriteLine("3: Buy consumables");
             Console.WriteLine("4: Sell wares");
-            Console.WriteLine("5: Exit");
+            Console.WriteLine("Literally anything else: Exit");
             
             /*LoadMarketplace(3);*/
         }
@@ -35,7 +37,7 @@ namespace OOANS_projekt
         {
             Inventory from;
             Inventory to;
-            switch place
+            switch (place)
             {
                 case 1: 
                     from = this.Armory;
@@ -55,9 +57,11 @@ namespace OOANS_projekt
                     break;
                 default:
                     Mediator.SwitchMode(Controller.ControllerType.Menu);
+                    from = this.BackPack;
+                    break;
      
             }
-            foreach (Item item in from.GetItems())
+            foreach (AbstractItem item in from.Items)
             {
                 Console.WriteLine(item.Name + ": " + item.Price);
             }

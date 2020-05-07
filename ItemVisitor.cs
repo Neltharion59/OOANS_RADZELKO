@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OOANS_projekt
 {
 public interface ItemVisitor
-{
-    void Visit(Item Item);
-    void Visit(Backpack Backpack);
+    {
+    public void Visit(AbstractItem Item);
+    public void Visit(Backpack Backpack);
 }}
