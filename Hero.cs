@@ -10,12 +10,12 @@ namespace OOANS_projekt
     {
         //Lukas
         public int ActionPoints { get; set; }
-        public int HarvestPower;
+        private int HarvestPower;
         private HeroInventory Inventory;
         //Miso
         public List<Skill> Skills { get; set; }
-        public HealthStat HP { get; set; }
-        public String name { get; set; }
+        private HealthStat HP { get; set; }
+        private String name { get; set; }
 
         public Hero(List<Skill> Skills, int HealthPoints, String name)
         {

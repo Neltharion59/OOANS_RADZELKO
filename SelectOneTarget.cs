@@ -21,9 +21,9 @@ namespace OOANS_projekt
         public double CalculateCoeficient(Field source, int MaxTargets)
         {
             //Console.WriteLine("Calculate coeficient: " + source.Hero.CalculateDamageModifier());
-            if (source.Hero != null)
+            if (source.GetHero() != null)
             {
-                return 1.0 * source.Hero.CalculateDamageModifier();
+                return 1.0 * source.GetHero().CalculateDamageModifier();
             }
             return 1.0;
         }

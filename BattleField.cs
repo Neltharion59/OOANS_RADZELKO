@@ -9,7 +9,7 @@ namespace OOANS_projekt
     class Battlefield
     {
         private List<List<Field>> BattleGrid { get; }
-        public List<HeroInterface> Heroes { get; }
+        private List<HeroInterface> Heroes { get; }
 
         public Battlefield(List<List<Field>> BattleGrid)
         {
@@ -30,7 +30,6 @@ namespace OOANS_projekt
             }
             catch (Exception e)
             {
-                //Console.WriteLine(e);
             }
             return Result;
         }
@@ -63,7 +62,7 @@ namespace OOANS_projekt
                 for (int j = 0; j < BattleGrid[i].Count; j++)
                 {
                     Result.Last()[j + 1] = BattleGrid[i][j].ToScreenText() + ", " + 
-                        (BattleGrid[i][j].Hero == null ? "E" : "H");
+                        (BattleGrid[i][j].GetHero() == null ? "E" : "H");
                 }
             }
             return Result;

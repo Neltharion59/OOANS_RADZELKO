@@ -8,15 +8,15 @@ namespace OOANS_projekt
 {
     class HeroProxy : HeroInterface
     {
-        public Hero RealHero { get; set; }
-        public List<Effect> Effects { get; set; } //TODO naco nam je potom toto, ked vyprsi efekt tak potom vdaka tomuto bude vediet co odratat,
-        public int damageResistance { get; set; }                                       //napr. dalsim observerom na konci kola....
+        private Hero RealHero { get; set; }
+        private List<Effect> Effects { get; set; }
+        public int damageResistance { get; set; }
         public int damageVulnerability { get; set; }
         public int damageIncrease { get; set; }
         public int damageReduce { get; set; }
         private int RemainingActionPoints { get; set; }
-        public int x;
-        public int y;
+        private int x;
+        private int y;
         public HeroProxy(Hero Hero)
         {
             this.RealHero = Hero;

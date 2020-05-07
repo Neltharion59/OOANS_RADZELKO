@@ -15,7 +15,7 @@ namespace OOANS_projekt
             {
                 return false;
             }
-            if (Field.Hero != null)
+            if (Field.GetHero() != null)
             {
                 return false;
             }
@@ -27,8 +27,8 @@ namespace OOANS_projekt
 
             return true;
         }
-        public abstract bool PermitEntry();
-        public abstract int GetEntryCost();
+        protected abstract bool PermitEntry();
+        protected abstract int GetEntryCost();
 
         public virtual Resource GatherResource(Field Field, int Amount)
         {
@@ -40,7 +40,7 @@ namespace OOANS_projekt
 
             return Result;
         }
-        public abstract void UpdateFieldStateAfterGathering(Field Field);
+        protected abstract void UpdateFieldStateAfterGathering(Field Field);
         public abstract void ProduceResource(Field Field);
         public abstract String ToScreenText();
     }

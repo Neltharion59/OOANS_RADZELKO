@@ -8,8 +8,8 @@ namespace OOANS_projekt
 {
     class CommandUseSkill : Command
     {
-        Skill UsedSkill;
-        Field source;
+        private Skill UsedSkill { get; }
+        private Field source { get; }
 
         public CommandUseSkill(Skill UsedSkill, Field source, ITriggerBehaviour triggerBehaviour)
         {

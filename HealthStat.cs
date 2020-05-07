@@ -8,7 +8,7 @@ namespace OOANS_projekt
 {
     class HealthStat : Subject //observer subjekt
     {
-        public int MaximumHP { get; set; }
+        private int MaximumHP { get; set; }
         public int ActualHP { get; set; }
         private List<Observer> ReadOnlyObservers { get; set; }
         private List<Observer> WriteObservers { get; set; }

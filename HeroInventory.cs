@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-    class HeroInventory
+    class HeroInventory : Inventory
     {
         private List<Resource> Resources { get; }
         public HeroInventory()
@@ -30,20 +30,6 @@ namespace OOANS_projekt
 
             this.Resources.Add(Resource);
             return true;
-        }
-        public HeroInventoryMemento CreateMemento()
-        {
-            HeroInventoryMemento Memento = new HeroInventoryMemento();
-            Memento.Resources = this.Resources.Select(resource => resource.CreateMemento()).ToList();
-            return Memento;
-        }
-        public void Restore(HeroInventoryMemento Memento)
-        {
-            this.Resources.Clear();
-            foreach (ResourceMemento ResMemento in Memento.Resources)
-            {
-                this.AddResource(ResMemento.ProduceOrigin());
-            }
         }
     }
 }

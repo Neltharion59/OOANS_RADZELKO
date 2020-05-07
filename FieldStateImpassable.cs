@@ -28,17 +28,17 @@ namespace OOANS_projekt
             return "Mt";
         }
 
-        public override void UpdateFieldStateAfterGathering(Field Field)
+        protected override void UpdateFieldStateAfterGathering(Field Field)
         {
             Field.SetStateNew(FieldStateNormal.GetInstance());
         }
 
-        public override int GetEntryCost()
+        protected override int GetEntryCost()
         {
             return EntryCost;
         }
 
-        public override bool PermitEntry()
+        protected override bool PermitEntry()
         {
             return false;
         }

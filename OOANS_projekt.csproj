@@ -106,7 +106,6 @@
     <Compile Include="FieldStateForest.cs" />
     <Compile Include="CommandGather.cs" />
     <Compile Include="HeroInventory.cs" />
-    <Compile Include="HeroInventoryMemento.cs" />
     <Compile Include="HeroMemento.cs" />
     <Compile Include="FieldStateImpassable.cs" />
     <Compile Include="FieldStateNormal.cs" />

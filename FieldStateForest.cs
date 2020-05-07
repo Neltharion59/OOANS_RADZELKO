@@ -20,12 +20,12 @@ namespace OOANS_projekt
 
             return FieldStateForest.Instance;
         }
-        public override int GetEntryCost()
+        protected override int GetEntryCost()
         {
             return EntryCost;
         }
 
-        public override bool PermitEntry()
+        protected override bool PermitEntry()
         {
             return true;
         }
@@ -40,7 +40,7 @@ namespace OOANS_projekt
             return "For";
         }
 
-        public override void UpdateFieldStateAfterGathering(Field Field)
+        protected override void UpdateFieldStateAfterGathering(Field Field)
         {
             Field.SetStateNew(FieldStateNormal.GetInstance());
         }

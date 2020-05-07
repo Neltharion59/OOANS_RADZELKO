@@ -27,12 +27,12 @@ namespace OOANS_projekt
         {
             foreach (Field target in targets)
             {
-                if (target.Hero != null)
+                if (target.GetHero() != null)
                 {
                     //Console.WriteLine("Dealing " + (int)(DamageAmount * coeficient) + " damage to " + target.Hero.GetHeroName());
-                    Console.Write("Dealing damage to " + target.Hero.GetHeroName());
+                    Console.Write("Dealing damage to " + target.GetHero().GetHeroName());
                     //Console.WriteLine("\nCauseDamageSkill coeficient: " + coeficient + " damage amount: " + DamageAmount);
-                    target.Hero.DealDamage((int)(DamageAmount * coeficient));
+                    target.GetHero().DealDamage((int)(DamageAmount * coeficient));
 
                 }
             }

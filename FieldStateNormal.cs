@@ -28,16 +28,16 @@ namespace OOANS_projekt
             return "Norm";
         }
 
-        public override void UpdateFieldStateAfterGathering(Field Field)
+        protected override void UpdateFieldStateAfterGathering(Field Field)
         {
         }
 
-        public override int GetEntryCost()
+        protected override int GetEntryCost()
         {
             return EntryCost;
         }
 
-        public override bool PermitEntry()
+        protected override bool PermitEntry()
         {
             return true;
         }

@@ -27,10 +27,10 @@ namespace OOANS_projekt
         {
             foreach (Field target in targets)
             {
-                if (target.Hero != null) //aplikovanie buffu
+                if (target.GetHero() != null) //aplikovanie buffu
                 {
-                    Console.WriteLine("Applying " + this.buff.Name + " " + /*this.buff.DamageResistance +*/ " to " + target.Hero.GetHeroName());
-                    target.Hero.AddEffect(this.buff);
+                    Console.WriteLine("Applying " + this.buff.Name + " " + /*this.buff.DamageResistance +*/ " to " + target.GetHero().GetHeroName());
+                    target.GetHero().AddEffect(this.buff);
                 }
             }
         }

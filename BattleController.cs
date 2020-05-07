@@ -10,7 +10,7 @@ namespace OOANS_projekt
     class BattleController : Controller
     {
         public Battlefield Battlefield { get; }
-        public bool RefreshBattleField { get; set; }
+        private bool RefreshBattleField { get; set; }
         private readonly object Refreshlock = new object();
         private bool Over { get; set; }
         private Mediator Mediator;
@@ -20,13 +20,6 @@ namespace OOANS_projekt
 
         private LinkedList<HeroInterface> HeroQueue { get; set; }
 
-        public void Commence(Controller.ControllerType type, Mediator Mediator)
-        {
-            this.Mediator = Mediator;
-            this.ReceiveCommands();
-            Console.ReadLine();
-
-        }
         public BattleController(Battlefield Battlefield)
         {  
             this.Over = false;
@@ -34,66 +27,20 @@ namespace OOANS_projekt
 
             this.Battlefield = Battlefield;
 
-           /* Hero Hero = new Hero(new List<Skill>(), 100, "Hero1");
-            Hero.ActionPoints = 5;
-
-            Hero.Skills.Add(
-                new SkillDamage(
-                    "Passive self damage",
-                    20,
-                    SelectSelf.GetInstance(),
-                    1,
-                    1,
-                    90,
-                    true
-                )
-            );
-            Hero.Skills.Add(
-                new SkillHeal(
-                    "Passive self healing",
-                    20,
-                    SelectSelf.GetInstance(),
-                    1,
-                    1,
-                    80,
-                    true
-                )
-            );
-
-
-            HeroProxy Herop = new HeroProxy(Hero);
-            Battlefield.AddHero(Herop, 0, 0);
-
-            Hero = new Hero(new List<Skill>(), 50, "Hero3");
-            Hero.ActionPoints = 4;
-            Herop = new HeroProxy(Hero);
-            Battlefield.AddHero(Herop, 4, 4);*/
-
             this.CommandStackNormal = new Stack<BattlefieldMemento>();
             this.CommandStackReverse = new Stack<BattlefieldMemento>();
-            
-
-            
 
             this.RefreshBattleField = false;
-            //this.RenderBattleField();
             this.KeepRenderingBattleField();
-
-            
-
-            /*SkillPlaceTrap Skill = new SkillPlaceTrap(
-                new SkillDamage("Pascokiller", 20, SelectSelf.GetInstance(), 1, 1, 50, false),
-                "Trapp-Placing skill",
-                SelectOneTarget.GetInstance(),
-                1,
-                1,
-                20,
-                false
-            );
-            this.ExecuteCommand(new CommandUseSkill(Skill, Battlefield.GetField(0, 0), SelectOneTarget.GetInstance()));*/
         }
+        public void Commence(Controller.ControllerType type, Mediator Mediator)
+        {
+            this.Mediator = Mediator;
+            this.ReceiveCommands();
+            Console.ReadLine();
 
-        public void ReceiveCommands()
+        }
+        private void ReceiveCommands()
         {
             this.HeroQueue = this.Battlefield.GetAllHeroes();
             this.CommandStackNormal.Push(this.Battlefield.CreateMemento());
@@ -277,7 +224,7 @@ namespace OOANS_projekt
             this.CommandStackNormal.Push(this.Battlefield.CreateMemento());
         }
 
-        public void KeepRenderingBattleField()
+        private void KeepRenderingBattleField()
         {
             Thread thread = new Thread(() => {
                 while (true)
@@ -305,7 +252,7 @@ namespace OOANS_projekt
             });
             thread.Start();
         }
-        public void RenderBattleField()
+        private void RenderBattleField()
         {
             //Console.Clear();
             List<object[]> a = Battlefield.ToRenderableFormat();

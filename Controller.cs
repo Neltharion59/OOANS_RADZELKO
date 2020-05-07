@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-public interface Controller
-{
-    enum ControllerType
+    public interface Controller
     {
-        Battle,
-        Marketplace,
-        Menu
+        enum ControllerType
+        {
+            Battle,
+            Marketplace,
+            Menu
+        }
+        public void Commence(ControllerType type, Mediator Mediator);
     }
-    public void Commence(ControllerType type, Mediator Mediator);
-}
 }

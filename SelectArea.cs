@@ -20,7 +20,7 @@ namespace OOANS_projekt
         }
         public double CalculateCoeficient(Field source, int MaxTargets)
         {
-            return 0.5 * source.Hero.CalculateDamageModifier();
+            return 0.5 * source.GetHero().CalculateDamageModifier();
         }
 
         public List<Field> selectTargets(Battlefield battlefield, Field source, int SkillRange, int MaxTargets, bool targetSelf)
@@ -35,7 +35,7 @@ namespace OOANS_projekt
                     {
                         try
                         {
-                            if (battlefield.GetField(source.x + x, source.y + y).Hero != null)
+                            if (battlefield.GetField(source.x + x, source.y + y).GetHero() != null)
                             {
                                 targets.Add(battlefield.GetField(source.x + x, source.y + y));
                             }

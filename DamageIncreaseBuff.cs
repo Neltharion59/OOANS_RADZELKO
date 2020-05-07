@@ -8,7 +8,7 @@ namespace OOANS_projekt
 {
     class DamageIncreaseBuff : Effect
     {
-        public int DamageIncrease { get; set; }
+        private int DamageIncrease { get; }
 
         public DamageIncreaseBuff(String name, int duration, int damageIncrease)
         {

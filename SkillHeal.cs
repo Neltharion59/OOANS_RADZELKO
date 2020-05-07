@@ -26,10 +26,10 @@ namespace OOANS_projekt
         {
             foreach (Field target in targets)
             {
-                if (target.Hero != null)
+                if (target.GetHero() != null)
                 {
-                    Console.WriteLine("Healing " + (int)(HealAmount * coeficient) + " health to " + target.Hero.GetHeroName());
-                    target.Hero.HealHealth((int)(HealAmount * coeficient));
+                    Console.WriteLine("Healing " + (int)(HealAmount * coeficient) + " health to " + target.GetHero().GetHeroName());
+                    target.GetHero().HealHealth((int)(HealAmount * coeficient));
                 }
             }
         }

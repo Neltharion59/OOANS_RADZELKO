@@ -8,7 +8,7 @@ namespace OOANS_projekt
 {
     class DamageReduceDebuff : Effect
     {
-        public int DamageReduce { get; set; }
+        private int DamageReduce { get; }
 
         public DamageReduceDebuff(String name, int duration, int damageReduce)
         {

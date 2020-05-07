@@ -27,10 +27,10 @@ namespace OOANS_projekt
         {
             foreach (Field target in targets)
             {
-                if (target.Hero != null) //aplikovanie debuffu
+                if (target.GetHero() != null) //aplikovanie debuffu
                 {
-                    Console.WriteLine("Applying " + this.debuff.Name + " " /*+ this.debuff.DamageVulnerability*/ + " to " + target.Hero.GetHeroName());
-                    target.Hero.AddEffect(this.debuff);
+                    Console.WriteLine("Applying " + this.debuff.Name + " " /*+ this.debuff.DamageVulnerability*/ + " to " + target.GetHero().GetHeroName());
+                    target.GetHero().AddEffect(this.debuff);
                 }
             }
         }

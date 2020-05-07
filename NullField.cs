@@ -9,9 +9,7 @@ namespace OOANS_projekt
     class NullField : AbstractField
     {
         private static NullField Instance { get; set; } = null;
-        private NullField()
-        {
-        }
+        private NullField() {}
         public static NullField GetInstance()
         {
             if (NullField.Instance == null)

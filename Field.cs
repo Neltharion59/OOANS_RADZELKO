@@ -8,13 +8,12 @@ namespace OOANS_projekt
 {
     class Field : AbstractField, Subject
     {
-        //TODO
         public int x { get; } = -1;
         public int y { get; } = -1;
 
-        public AbstractField NextInChain { get; private set; }
-        public HeroInterface Hero { get; set; }
-        public FieldState State { get; private set; }
+        private AbstractField NextInChain { get; set; }
+        private HeroInterface Hero { get; set; }
+        private FieldState State { get; set; }
         public Resource Resource { get; set; }
 
         private List<Observer> Observers;
@@ -103,7 +102,7 @@ namespace OOANS_projekt
             return this.State.ToScreenText() + (this.Resource == null ? "" : ("-" + this.Resource.Type.ToString()[0] + ":" + Resource.Amount));
         }
 
-        public void SetStateSimple(FieldState State)
+        private void SetStateSimple(FieldState State)
         {
             this.State = State;
         }

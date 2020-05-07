@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OOANS_projekt
 {
-
-// Mediates the common tasks
-public interface Mediator
-{
-    public void SwitchMode(Controller.ControllerType type);
-}}
+    // Mediates the common tasks
+    public interface Mediator
+    {
+        public void SwitchMode(Controller.ControllerType type);
+    }
+}
