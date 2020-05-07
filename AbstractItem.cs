@@ -8,6 +8,8 @@ namespace OOANS_projekt
 {
     public abstract class AbstractItem
     {
+        public int Price;
+        public string Name;
         public abstract bool Sell(Inventory Inventory);
         public abstract void Accept(ItemVisitor Visitor);
     }

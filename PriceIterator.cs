@@ -13,7 +13,7 @@ namespace OOANS_projekt
         public PriceIterator(List<AbstractItem> Items)
         {
             this.Items = Items;
-            this.Items.Sort(delegate (Item x, Item y)
+            /*this.Items.Sort(delegate (Item x, Item y)
             {
                 if(x.price > y.price)
                 {
@@ -23,7 +23,7 @@ namespace OOANS_projekt
                 {
                     return -1;
                 }
-            }            
+            }   */         
         }
         
         public override bool HasNext()
