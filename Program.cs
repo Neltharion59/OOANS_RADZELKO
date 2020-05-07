@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,11 +35,19 @@ namespace OOANS_projekt
 
             Battlefield bf = new Battlefield(Fields.Select(x => x.ToList()).ToList());
             BattleController bc = new BattleController(bf);
+            MarketplaceController mc = new MarketplaceController();
+            Menu menu = new Menu();
 
             PrepareHeroes(bf);
 
-            bc.ReceiveCommands();
+            ControllerMediator mediator = new ControllerMediator(bc, mc, menu);
+            mediator.SwitchMode(Controller.ControllerType.Menu);
+
+
+            /*bc.ReceiveCommands();
             Console.ReadLine();
+            */
+            System.Environment.Exit(0);
         }
 
         private static void PrepareHeroes(Battlefield Battlefield)

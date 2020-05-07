@@ -33,7 +33,7 @@ namespace OOANS_projekt
         
         public override bool HasNext()
         {
-            if (pos < Items.Count())
+            if (pos + 1 < Items.Count())
             {
                 return true;
             }

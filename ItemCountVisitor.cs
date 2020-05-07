@@ -9,7 +9,7 @@ namespace OOANS_projekt
 
 public class ItemCountVisitor : ItemVisitor
 {
-    int count = 0;
+    public int count = 0;
     public void Visit(AbstractItem Item)
     {
         count++;

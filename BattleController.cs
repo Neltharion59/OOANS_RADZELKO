@@ -23,7 +23,9 @@ namespace OOANS_projekt
         public void Commence(Controller.ControllerType type, Mediator Mediator)
         {
             this.Mediator = Mediator;
-            this.RenderBattleField();
+            this.ReceiveCommands();
+            Console.ReadLine();
+
         }
         public BattleController(Battlefield Battlefield)
         {  

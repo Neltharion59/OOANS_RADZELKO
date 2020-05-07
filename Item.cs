@@ -8,6 +8,11 @@ namespace OOANS_projekt
 {
     class Item : AbstractItem
     {
+        public Item(int price, string name)
+        {
+            this.Price = price;
+            this.Name = name;
+        }
         public override bool Sell(Inventory Inventory)
         {
             Inventory.Money += this.Price;

@@ -8,7 +8,7 @@ namespace OOANS_projekt
 {
 public class PriceCalculateVisitor : ItemVisitor
 {
-    int value = 0;
+    public int value = 0;
     public void Visit(AbstractItem Item)
     {
         value += Item.Price;

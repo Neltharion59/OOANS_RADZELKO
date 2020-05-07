@@ -23,8 +23,16 @@ namespace OOANS_projekt
             Console.WriteLine("2: Go to market");
             Console.WriteLine("3: Manage heroes");
             Console.WriteLine("4: Exit");
+
+            string choice = Console.ReadLine();
+            int numChoice;
+            if (int.TryParse(choice, out numChoice))
+            {
+                LoadMarketplace(numChoice);
+            }
+
         }
-        
+
         public void LoadMarketplace(int place)
         {
             switch (place)

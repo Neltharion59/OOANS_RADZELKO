@@ -10,18 +10,30 @@ namespace OOANS_projekt
 // Mediates the common tasks
 class ControllerMediator : Mediator
 {
-    public Controller BattleController { get; set; }
-    public Controller MarketplaceController { get; set; }
+        public BattleController BattleController;
+        public MarketplaceController MarketplaceController;
+        public Menu Menu;
 
-    public void SwitchMode(Controller.ControllerType type)
+        public ControllerMediator(BattleController BattleController, MarketplaceController MarketplaceController, Menu Menu)
+        {
+            this.BattleController = BattleController;
+            this.MarketplaceController = MarketplaceController;
+            this.Menu = Menu;
+        }
+
+        public void SwitchMode(Controller.ControllerType type)
     {
         switch (type){
-            case Controller.ControllerType.Battlefield : 
-                this.BattleController.Commence(type);
+            case Controller.ControllerType.Battle :
+                    this.BattleController.Commence(type, this);
                 break;
-            case Controller.ControllerType.Marketplace : 
-                this.MarketplaceController.Commence(type);
+            case Controller.ControllerType.Marketplace:
+                this.MarketplaceController.Commence(type, this);
                 break;
+            case Controller.ControllerType.Menu:
+                this.Menu.Commence(type, this);
+                break;
+
+            }
         }
-    }
 }}
