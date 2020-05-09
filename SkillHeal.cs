@@ -34,7 +34,7 @@ namespace OOANS_projekt
             }
         }
 
-        public override bool TargetSelf()
+        protected override bool TargetSelf()
         {
             return true;
         }

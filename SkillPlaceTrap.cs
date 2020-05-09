@@ -20,7 +20,7 @@ namespace OOANS_projekt
             this.TriggerTreshold = Treshold;
             this.Passive = pass;
         }
-        public override bool TargetSelf()
+        protected override bool TargetSelf()
         {
             return true;
         }

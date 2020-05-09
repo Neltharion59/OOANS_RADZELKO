@@ -28,7 +28,7 @@ namespace OOANS_projekt
             Console.WriteLine("Skill ended: " + Name + "\n");
         }
         public abstract void Use(List<Field> targets, double coeficient);
-        public abstract bool TargetSelf();
+        protected abstract bool TargetSelf();
         public virtual SkillMemento CreateMemento()
         {
             SkillMemento Memento = new SkillMemento();
